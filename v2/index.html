@@ -281,10 +281,10 @@
   /* Misma idea que en v1, otro registro: fondo blush, texto verde
      profundo y desplazamiento en sentido contrario. */
   .strip{background:var(--blush);color:var(--forest);padding:20px 0;overflow:hidden}
-  .strip-track{display:flex;width:max-content;animation:slide 52s linear infinite}
+  .strip-track{display:flex;width:max-content;animation:slide 52s linear infinite;will-change:transform}
   .strip-track span{
-    font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.1vw,28px);
-    line-height:1.5;padding:0 32px;white-space:nowrap;color:var(--forest);
+    font-family:var(--serif);font-style:italic;font-size:17px;
+    line-height:1.75;padding:0 32px;white-space:nowrap;color:var(--forest);
   }
   .strip-track span::after{
     content:'';display:inline-block;vertical-align:middle;
@@ -292,7 +292,7 @@
     margin-left:32px;margin-bottom:4px;
   }
   @keyframes slide{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-  @media(prefers-reduced-motion:reduce){.strip-track{animation:none}}
+  @media(prefers-reduced-motion:reduce){.strip-track{animation:slide 52s linear infinite}}
 
   /* ============ SHELL DE SECCIÓN ============ */
   /* overflow-x:clip (y no hidden) recorta la marca de agua sin crear un

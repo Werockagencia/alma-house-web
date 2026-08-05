@@ -222,14 +222,14 @@
 
   /* ============ FRANJA DE MARCA ============ */
   .strip{background:var(--terracotta);color:var(--cream);padding:22px 0;overflow:hidden}
-  .strip-track{display:flex;width:max-content;animation:slide 46s linear infinite}
+  .strip-track{display:flex;width:max-content;animation:slide 46s linear infinite;will-change:transform}
   .strip-track span{
-    font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,30px);
-    line-height:1.5;padding:0 34px;white-space:nowrap;color:rgba(247,239,231,.94);
+    font-family:var(--serif);font-style:italic;font-size:17.5px;
+    line-height:1.75;padding:0 34px;white-space:nowrap;color:rgba(247,239,231,.94);
   }
   .strip-track span::after{content:'·';margin-left:34px;color:var(--blush)}
   @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.strip-track{animation:none}}
+  @media(prefers-reduced-motion:reduce){.strip-track{animation:slide 46s linear infinite}}
 
   /* ============ SHELL DE SECCIÓN ============ */
   .sec{padding:clamp(80px,10vw,132px) 0;scroll-margin-top:70px}
