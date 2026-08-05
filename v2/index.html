@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alma House Nails Bar · Manicure y pedicure premium en Cajicá</title>
+<meta name="description" content="Alma House Nails Bar — manicure y pedicure premium en Cajicá, Cundinamarca. Un espacio pensado para hacer una pausa, respirar y regalarte tiempo. Reserva tu cita.">
+<meta name="theme-color" content="#F7EFE7">
+<link rel="icon" href="../assets/img/icon-olive.png">
+<style>
+
+  /* ============================================================
+     ALMA HOUSE · DIRECCIÓN VISUAL 2 — "Jardín"
+     Protagonista: Edamame #A3A287 (el verde del propio isotipo y
+     de la pared del estudio). Hot Brown queda fuera para que la
+     dirección se lea distinta a la v1 desde el primer vistazo.
+     Lenguaje de formas: arcos, círculos y píldoras — orgánico,
+     frente a las esquinas rectas y editoriales de la v1.
+     ============================================================ */
+
+  /* ============ TIPOGRAFÍA ============
+     Aurora Magnollia Serif → titulares y frases de marca (display).
+     Figtree → todo el texto de lectura e interfaz (fuente del kit).
+     Uncage  → SOLO antetítulos en versales: es una tipografía
+               unicase, no sirve como fuente de lectura ni de UI.
+     Se referencian los binarios de ../assets para no duplicarlos.
+  ==================================== */
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('../assets/fonts/AuroraMagnolliaSerif-Regular.otf') format('opentype');
+    font-weight:400; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('../assets/fonts/AuroraMagnolliaSerif-Italic.otf') format('opentype');
+    font-weight:400; font-style:italic; font-display:swap;
+  }
+  @font-face{
+    font-family:'Figtree';
+    src:url('../assets/fonts/Figtree-VF.ttf') format('truetype-variations');
+    font-weight:300 800; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'Uncage';
+    src:url('../assets/fonts/Uncage-VF.ttf') format('truetype-variations');
+    font-weight:100 900; font-style:normal; font-display:swap;
+  }
+
+  :root{
+    /* --- paleta oficial --- */
+    --cream:#F7EFE7;        /* White Beach   */
+    --blush:#CEBAAA;        /* Smoke Dragon  */
+    --sage:#A3A287;         /* Edamame       */
+    --tan:#AF9175;          /* Bakery Brown  */
+    /* --- tintes y sombras derivados de la paleta --- */
+    --cream-lt:#FCF9F5;     /* White Beach aclarado           */
+    --blush-lt:#EADFD4;     /* White Beach + Smoke Dragon     */
+    --moss:#5F6149;         /* Edamame oscurecido (texto/UI)  */
+    --forest:#3F412F;       /* Edamame profundo (superficies) */
+    --forest-dp:#2E3024;    /* Edamame más profundo (footer)  */
+    --ink:#32342A;
+    --ink2:#5E6150;
+    --ink3:#7A7C66;
+    --serif:'Aurora Magnollia Serif',Georgia,serif;
+    --sans:'Figtree',-apple-system,'Segoe UI',sans-serif;
+    --sh:0 4px 24px rgba(50,52,42,.06);
+    --sh2:0 30px 70px rgba(50,52,42,.16);
+    --nav-h:80px;
+    /* arcos: radio superior elíptico, base apenas redondeada */
+    --arch:50% 50% 16px 16px / 30% 30% 2.5% 2.5%;
+    --arch-sm:50% 50% 14px 14px / 22% 22% 2% 2%;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--cream);
+    color:var(--ink);
+    font-size:16.5px;
+    font-weight:400;
+    line-height:1.72;
+    letter-spacing:.002em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- utilidades tipográficas ---------- */
+  /* Uncage sólo aquí: los antetítulos son versales por diseño. */
+  .eyebrow{
+    display:inline-block;font-family:'Uncage',var(--sans);
+    font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--moss);margin-bottom:20px;
+  }
+  .eyebrow.light{color:var(--blush)}
+  .eyebrow::before{
+    content:'';display:inline-block;vertical-align:middle;
+    width:22px;height:1px;background:currentColor;opacity:.55;
+    margin-right:12px;margin-bottom:2px;
+  }
+  .display{
+    font-family:var(--serif);font-weight:400;font-style:normal;
+    line-height:1.06;letter-spacing:-.006em;color:var(--ink);
+  }
+  .display em{font-style:italic;color:var(--moss)}
+  h1.display{font-size:clamp(46px,6.2vw,92px)}
+  h2.display{font-size:clamp(34px,4.6vw,58px)}
+  .lead{
+    font-family:var(--sans);font-size:17px;font-weight:400;line-height:1.75;
+    color:var(--ink2);max-width:52ch;margin-top:22px;
+  }
+  .on-dark .display,.on-dark h2.display{color:var(--cream)}
+  .on-dark .display em{color:var(--blush)}
+  .on-dark .lead{color:rgba(247,239,231,.78)}
+  .center{text-align:center}
+  .center .lead{margin-left:auto;margin-right:auto}
+
+  /* ---------- botones (píldora, frente al rectángulo de la v1) ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--sans);font-size:12px;font-weight:600;
+    letter-spacing:.13em;text-transform:uppercase;
+    padding:16px 34px;border:1px solid transparent;border-radius:999px;
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease,box-shadow .3s ease;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--forest);color:var(--cream)}
+  .btn-primary:hover{background:var(--moss);transform:translateY(-2px);box-shadow:0 12px 26px rgba(63,65,47,.24)}
+  .btn-line{border-color:rgba(95,97,73,.4);color:var(--moss)}
+  .btn-line:hover{border-color:var(--moss);background:rgba(163,162,135,.14)}
+  .btn-line-light{border-color:rgba(247,239,231,.45);color:var(--cream)}
+  .btn-line-light:hover{border-color:var(--cream);background:rgba(247,239,231,.1)}
+  .btn-blush{background:var(--blush);color:var(--forest)}
+  .btn-blush:hover{background:var(--cream);transform:translateY(-2px);box-shadow:0 12px 26px rgba(50,52,42,.2)}
+  .btn svg{width:15px;height:15px;flex-shrink:0}
+
+  /* ---------- scroll reveal ---------- */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .rvs>*{opacity:0;transform:translateY(22px);transition:opacity .85s ease,transform .85s ease}
+  .rvs.in>*{opacity:1;transform:none}
+  .rvs.in>*:nth-child(1){transition-delay:.04s}
+  .rvs.in>*:nth-child(2){transition-delay:.13s}
+  .rvs.in>*:nth-child(3){transition-delay:.22s}
+  .rvs.in>*:nth-child(4){transition-delay:.31s}
+  .rvs.in>*:nth-child(5){transition-delay:.40s}
+  .rvs.in>*:nth-child(6){transition-delay:.49s}
+  .rvs.in>*:nth-child(7){transition-delay:.58s}
+  @media(prefers-reduced-motion:reduce){
+    .rv,.rvs>*{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* ================= NAV ================= */
+  /* El hero arranca en crema, así que la barra puede nacer
+     transparente y solidificarse al hacer scroll. */
+  #nav{
+    position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 clamp(20px,4vw,56px);
+    background:transparent;
+    transition:box-shadow .4s ease,height .4s ease,background .4s ease,backdrop-filter .4s ease;
+  }
+  #nav.solid{
+    background:rgba(247,239,231,.94);backdrop-filter:blur(16px);
+    box-shadow:var(--sh);height:66px;
+  }
+  /* El wordmark del kit viene en Hot Brown; se usa como máscara para
+     teñirlo con el verde de esta dirección sin duplicar el binario. */
+  .nav-logo{display:flex;align-items:center}
+  .mark{
+    display:block;height:24px;aspect-ratio:520/93;background:var(--forest);
+    -webkit-mask:url('../assets/img/wordmark-terracotta.png') no-repeat center/contain;
+            mask:url('../assets/img/wordmark-terracotta.png') no-repeat center/contain;
+    transition:height .4s ease;
+  }
+  #nav.solid .mark{height:21px}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{
+    font-size:13.5px;font-weight:500;letter-spacing:.01em;
+    color:var(--ink2);transition:color .3s;position:relative;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;
+    background:var(--sage);transition:width .35s ease;
+  }
+  .nav-links a:hover{color:var(--moss)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{font-size:11px;padding:12px 26px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer}
+  .burger span{display:block;width:24px;height:1.5px;background:var(--forest)}
+  @media(max-width:940px){
+    .nav-links,.nav-cta{display:none}
+    .burger{display:flex}
+  }
+
+  #mnav{
+    position:fixed;inset:0;z-index:1200;background:var(--forest);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;overflow:hidden;
+  }
+  #mnav.open{opacity:1;pointer-events:auto}
+  #mnav a{font-family:var(--serif);font-size:34px;color:var(--cream);position:relative;z-index:2}
+  #mnav .btn{font-family:var(--sans);font-size:12px;margin-top:14px}
+  #mnav .close{
+    position:absolute;top:20px;right:24px;background:none;border:none;color:var(--cream);
+    font-size:34px;line-height:1;cursor:pointer;font-family:var(--sans);font-weight:300;z-index:3;
+  }
+  #mnav .mn-mark{
+    position:absolute;width:min(78vw,420px);opacity:.07;z-index:1;
+    bottom:-14%;left:50%;transform:translateX(-50%);pointer-events:none;
+  }
+
+  /* ================= HERO ================= */
+  /* v1 partía la pantalla en texto | foto. Aquí la composición es
+     centrada y simétrica, y la fotografía entra como un tríptico
+     de arcos — un pórtico, no una división. */
+  .hero{
+    position:relative;min-height:100svh;
+    display:flex;flex-direction:column;justify-content:flex-start;
+    padding-top:calc(var(--nav-h) + clamp(20px,3.5vw,46px));
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-22%;left:50%;transform:translateX(-50%);
+    width:min(1100px,120vw);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(206,186,170,.34) 0%,rgba(247,239,231,0) 62%);
+    pointer-events:none;
+  }
+  .hero-copy{
+    position:relative;z-index:2;text-align:center;
+    max-width:920px;margin:0 auto;padding:0 clamp(24px,5vw,40px);
+  }
+  .hero-title{font-size:clamp(44px,6.2vw,86px);line-height:1.02}
+  .hero-title em{font-style:italic;color:var(--moss)}
+  .hero-sub{margin:20px auto 0;max-width:48ch;font-size:17.5px}
+  .hero-actions{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;justify-content:center}
+
+  .hero-tript{
+    position:relative;z-index:2;margin-top:auto;
+    display:grid;grid-template-columns:1fr 1.3fr 1fr;align-items:end;
+    gap:clamp(12px,2vw,26px);
+    max-width:1180px;width:100%;margin-left:auto;margin-right:auto;
+    padding:clamp(26px,3.5vw,46px) clamp(24px,5vw,56px) 0;
+  }
+  .arch-fig{position:relative;overflow:hidden;background:var(--blush);box-shadow:var(--sh2)}
+  .arch-fig img{width:100%;height:100%;object-fit:cover}
+  /* Alturas relativas al viewport para que el tríptico siempre
+     asome dentro del primer pantallazo, no sólo en monitores altos. */
+  .tript-side{border-radius:var(--arch);height:clamp(160px,27svh,320px)}
+  .tript-mid{border-radius:var(--arch);height:clamp(220px,37svh,428px)}
+  .tript-side:first-child img{object-position:center 55%}
+  /* Encuadre calculado para que el rostro quede centrado en el arco
+     y no lo tape la píldora inferior. */
+  .tript-mid img{object-position:54% 43%}
+  .hero-tag{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    background:var(--cream);padding:11px 26px;border-radius:999px;
+    box-shadow:0 10px 30px rgba(50,52,42,.16);white-space:nowrap;z-index:3;
+  }
+  .hero-tag span{
+    font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.7vw,22px);
+    color:var(--moss);line-height:1.3;display:block;
+  }
+  @media(max-width:900px){
+    /* El antetítulo del hero es largo: se aprieta un punto para que no
+       parta en dos líneas en pantallas de 390px. */
+    .hero-copy .eyebrow{font-size:10px;letter-spacing:.22em}
+    .hero-copy .eyebrow::before{width:16px;margin-right:9px}
+    .hero{min-height:0;padding-bottom:0}
+    .hero-tript{grid-template-columns:1fr;padding-left:24px;padding-right:24px}
+    .tript-side{display:none}
+    .tript-mid{height:min(56svh,420px)}
+    .hero-tag{bottom:20px}
+  }
+
+  /* ============ FRANJA DE MARCA ============ */
+  /* Misma idea que en v1, otro registro: fondo blush, texto verde
+     profundo y desplazamiento en sentido contrario. */
+  .strip{background:var(--blush);color:var(--forest);padding:20px 0;overflow:hidden}
+  .strip-track{display:flex;width:max-content;animation:slide 52s linear infinite}
+  .strip-track span{
+    font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.1vw,28px);
+    line-height:1.5;padding:0 32px;white-space:nowrap;color:var(--forest);
+  }
+  .strip-track span::after{
+    content:'';display:inline-block;vertical-align:middle;
+    width:6px;height:6px;border-radius:50%;background:var(--cream);
+    margin-left:32px;margin-bottom:4px;
+  }
+  @keyframes slide{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  @media(prefers-reduced-motion:reduce){.strip-track{animation:none}}
+
+  /* ============ SHELL DE SECCIÓN ============ */
+  /* overflow-x:clip (y no hidden) recorta la marca de agua sin crear un
+     contenedor de scroll, que rompería el position:sticky de .est-media. */
+  .sec{padding:clamp(80px,10vw,130px) 0;scroll-margin-top:70px;position:relative;overflow-x:clip}
+  .sec-lt{background:var(--cream-lt)}
+  .sec-blush{background:var(--blush-lt)}
+  .inner{max-width:1180px;margin:0 auto;padding:0 clamp(24px,5vw,56px)}
+  .head-c{max-width:720px;margin:0 auto}
+
+  /* ============ ESTUDIO ============ */
+  .estudio{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(44px,6vw,84px);align-items:start}
+  /* La columna de imagen acompaña al scroll de los cuatro pilares,
+     que son más altos; si no, queda un vacío grande a la izquierda. */
+  .est-media{position:sticky;top:110px;padding-bottom:56px}
+  .est-arch{border-radius:var(--arch);overflow:hidden;box-shadow:var(--sh2);background:var(--blush)}
+  .est-arch img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 40%}
+  /* El detalle en medallón redondo sustituye al recuadro de la v1. */
+  .est-medal{
+    position:absolute;right:-10px;bottom:0;width:clamp(120px,17vw,182px);
+    aspect-ratio:1;border-radius:50%;overflow:hidden;
+    border:7px solid var(--cream);box-shadow:var(--sh2);background:var(--blush);
+  }
+  .est-medal img{width:100%;height:100%;object-fit:cover}
+  .est-watermark{
+    position:absolute;right:-6%;top:-8%;width:min(46vw,420px);
+    opacity:.07;pointer-events:none;z-index:0;
+  }
+  .pillars{list-style:none;display:grid;gap:14px;margin-top:38px}
+  .pillar{
+    display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+    background:var(--cream-lt);border:1px solid rgba(163,162,135,.3);
+    border-radius:22px;padding:24px 26px;
+    transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
+  }
+  .pillar:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--sage)}
+  .pillar .n{
+    width:38px;height:38px;flex-shrink:0;border-radius:50%;
+    background:rgba(163,162,135,.22);color:var(--moss);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-style:italic;font-size:16px;line-height:1;
+  }
+  .pillar h3{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.25;color:var(--ink);margin-bottom:4px}
+  .pillar p{font-size:15.5px;color:var(--ink2);line-height:1.65}
+  @media(max-width:940px){
+    .estudio{grid-template-columns:1fr;gap:56px}
+    /* top:auto es imprescindible: sin él, el desplazamiento del sticky
+       se conserva en relative y empuja la imagen 110px sobre el texto. */
+    .est-media{position:relative;top:auto;max-width:520px;margin:0 auto;width:100%}
+    .est-medal{right:0}
+    .pillars{margin-top:0}
+  }
+
+  /* ============ SERVICIOS ============ */
+  /* v1 los presentaba como dos tarjetas gemelas. Aquí son dos
+     bandas alternadas de ancho completo, con las técnicas en
+     píldoras en vez de listado con viñetas. */
+  .serv-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);
+    align-items:center;margin-top:clamp(50px,6vw,86px);
+  }
+  .serv-row.flip .serv-media{order:2}
+  .serv-media{position:relative}
+  .serv-media .shot{border-radius:var(--arch-sm);overflow:hidden;box-shadow:var(--sh2);background:var(--blush)}
+  .serv-media .shot img{width:100%;aspect-ratio:5/4;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+  .serv-media:hover .shot img{transform:scale(1.05)}
+  .serv-badge{
+    position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);
+    background:var(--cream);border:1px solid rgba(163,162,135,.4);
+    padding:9px 24px;border-radius:999px;white-space:nowrap;
+    font-family:var(--serif);font-style:italic;font-size:18px;color:var(--moss);
+  }
+  .serv-body h3{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.06;color:var(--ink)}
+  .serv-body>p{font-size:16px;color:var(--ink2);margin-top:14px;max-width:42ch}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;list-style:none}
+  .chips li{
+    border:1px solid rgba(163,162,135,.55);border-radius:999px;
+    padding:9px 20px;font-size:14px;font-weight:500;color:var(--moss);
+    background:rgba(252,249,245,.7);transition:background .3s ease,border-color .3s ease;
+  }
+  .chips li:hover{background:var(--blush-lt);border-color:var(--sage)}
+  .serv-link{
+    display:inline-flex;align-items:center;gap:9px;margin-top:28px;
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--moss);border-bottom:1px solid rgba(95,97,73,.35);padding-bottom:5px;
+    transition:border-color .3s ease,gap .3s ease;
+  }
+  .serv-link:hover{border-color:var(--moss);gap:14px}
+  @media(max-width:860px){
+    .serv-row{grid-template-columns:1fr;gap:44px}
+    .serv-row.flip .serv-media{order:0}
+    .serv-badge{bottom:-18px}
+  }
+
+  /* ============ CITA FOTOGRÁFICA ============ */
+  /* Duotono verde suave + arco calado: la misma foto se lee
+     como parte del jardín, no como un banner oscuro genérico. */
+  .quote{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    padding:clamp(80px,10vw,130px) 24px;overflow:hidden;background:var(--forest);
+  }
+  .quote>img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    object-position:center 42%;filter:saturate(.72) contrast(1.04);
+  }
+  .quote::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(63,65,47,.5) 0%,rgba(46,48,36,.42) 100%);
+  }
+  /* El arco necesita una caja alta y estrecha: en una caja ancha la
+     cúpula se aplana y deja de leerse como arco. */
+  .quote-in{
+    position:relative;z-index:2;max-width:600px;width:100%;text-align:center;
+    border:1px solid rgba(247,239,231,.5);
+    border-radius:50% 50% 20px 20px / 30% 30% 3% 3%;
+    padding:clamp(84px,11vw,140px) clamp(30px,5vw,56px) clamp(56px,7vw,84px);
+    text-shadow:0 2px 26px rgba(40,42,28,.45);
+  }
+  .quote-in p{
+    font-family:var(--serif);font-style:italic;font-size:clamp(30px,4.4vw,54px);
+    line-height:1.18;color:var(--cream);
+  }
+  .quote-in small{
+    display:block;margin-top:22px;font-family:var(--sans);
+    font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+    color:rgba(206,186,170,.92);
+  }
+
+  /* ============ GALERÍA ============ */
+  /* Retícula escalonada de tres columnas con alturas y formas
+     distintas (arco, círculo, rectángulo suave), frente al mosaico
+     alineado de la v1. */
+  .gal{
+    margin-top:clamp(46px,5vw,66px);
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:clamp(14px,2vw,22px);align-items:start;
+  }
+  /* Columnas descolgadas entre sí: composición escalonada y orgánica,
+     no un mosaico alineado como el de la v1. */
+  .gal-col{display:grid;gap:clamp(14px,2vw,22px);align-content:start}
+  .gal-col:nth-child(2){margin-top:clamp(24px,4vw,46px)}
+  .gal-col:nth-child(3){margin-top:clamp(10px,1.8vw,20px)}
+  .gal figure{position:relative;overflow:hidden;background:var(--blush);border-radius:20px}
+  .gal figure.a{border-radius:var(--arch-sm)}
+  .gal figure.o{border-radius:50%}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+  .gal .drip img{object-position:center 88%}
+  /* Velo verde sutil que se retira al pasar el cursor: unifica el
+     conjunto sin apagar las fotos. */
+  .gal figure::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:var(--sage);mix-blend-mode:multiply;opacity:.16;
+    transition:opacity .6s ease;
+  }
+  .gal figure:hover::after{opacity:0}
+  .gal figure:hover img{transform:scale(1.06)}
+  @media(max-width:860px){
+    .gal{grid-template-columns:repeat(2,1fr)}
+    .gal-col:nth-child(2){margin-top:clamp(20px,5vw,40px)}
+    .gal-col:nth-child(3){margin-top:clamp(16px,4vw,32px);grid-column:span 2;grid-template-columns:repeat(2,1fr)}
+    .gal-col:nth-child(3) .last{grid-column:span 2;aspect-ratio:16/7}
+  }
+  @media(max-width:520px){
+    .gal{grid-template-columns:1fr}
+    .gal-col:nth-child(2),.gal-col:nth-child(3){margin-top:0;grid-column:span 1;grid-template-columns:1fr}
+    .gal-col:nth-child(3) .last{grid-column:span 1;aspect-ratio:16/11}
+  }
+
+  /* ============ RESERVA ============ */
+  /* Panel flotante de esquinas suaves sobre una foto atenuada,
+     con los pasos en horizontal — frente al bloque partido 50/50
+     de la v1. */
+  .reserva{padding:clamp(24px,4vw,56px) clamp(16px,4vw,56px)}
+  .res-shell{
+    position:relative;overflow:hidden;border-radius:clamp(26px,4vw,44px);
+    background:var(--forest);
+    padding:clamp(56px,7vw,104px) clamp(20px,4vw,64px);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .res-shell>img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    /* Encuadre sobre la mano y el sobre: la parte alta de la foto trae
+       una frase impresa que competiría con el titular del panel. */
+    object-position:center 72%;opacity:.34;filter:saturate(.55);
+  }
+  .res-shell::after{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(120% 90% at 50% 40%,rgba(63,65,47,.62) 0%,rgba(46,48,36,.9) 100%);
+  }
+  .res-card{
+    position:relative;z-index:2;background:var(--cream);
+    border-radius:clamp(20px,3vw,32px);box-shadow:var(--sh2);
+    max-width:860px;width:100%;text-align:center;
+    padding:clamp(40px,5.5vw,64px) clamp(26px,4.5vw,64px);
+  }
+  .res-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px;position:relative}
+  .res-steps::before{
+    content:'';position:absolute;top:23px;left:17%;right:17%;
+    border-top:1px dashed rgba(163,162,135,.75);z-index:0;
+  }
+  .res-steps li{position:relative;z-index:1;font-size:15px;color:var(--ink2);line-height:1.6}
+  .res-steps .n{
+    width:46px;height:46px;margin:0 auto 14px;border-radius:50%;
+    background:var(--cream);border:1px solid var(--sage);color:var(--moss);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:18px;line-height:1;
+  }
+  .res-cta{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .res-note{font-size:13px;color:var(--ink3);max-width:42ch;line-height:1.6}
+  #resToast{
+    display:none;font-size:13.5px;color:var(--moss);
+    background:rgba(163,162,135,.16);border:1px solid rgba(163,162,135,.5);
+    padding:12px 20px;border-radius:999px;max-width:44ch;line-height:1.55;
+  }
+  #resToast.show{display:block;animation:toastIn .45s ease both}
+  @keyframes toastIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  @media(max-width:700px){
+    .res-steps{grid-template-columns:1fr;gap:18px;max-width:320px;margin-left:auto;margin-right:auto}
+    .res-steps::before{display:none}
+    #resToast{border-radius:18px}
+  }
+
+  /* ============ CONTACTO ============ */
+  .con-grid{margin-top:clamp(42px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .con-card{
+    background:var(--cream);border:1px solid rgba(163,162,135,.32);
+    border-radius:24px;padding:32px 26px 30px;text-align:center;
+    transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
+  }
+  .con-card:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--sage)}
+  .con-ico{
+    width:42px;height:42px;margin:0 auto 16px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+    background:rgba(163,162,135,.24);display:flex;align-items:center;justify-content:center;
+  }
+  .con-ico svg{width:18px;height:18px;color:var(--moss)}
+  .con-lbl{display:block;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+  .con-val{font-family:var(--serif);font-size:23px;line-height:1.25;color:var(--ink)}
+  .badge{
+    display:inline-block;margin-top:14px;font-size:10px;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--moss);
+    background:rgba(163,162,135,.2);padding:6px 14px;border-radius:999px;
+  }
+  @media(max-width:900px){.con-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.con-grid{grid-template-columns:1fr}}
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--forest-dp);color:var(--cream);
+    border-radius:clamp(30px,5vw,56px) clamp(30px,5vw,56px) 0 0;
+    padding:clamp(56px,7vw,84px) clamp(24px,5vw,56px) 34px;
+    text-align:center;
+  }
+  .ft-brand img{height:96px;width:auto;margin:0 auto;opacity:.94}
+  .ft-tag{
+    margin-top:14px;font-family:var(--serif);font-style:italic;
+    font-size:clamp(18px,2vw,24px);color:var(--blush);
+  }
+  .ft-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+  .ft-links a{font-size:13.5px;color:rgba(247,239,231,.66);transition:color .3s}
+  .ft-links a:hover{color:var(--cream)}
+  .ft-bot{
+    max-width:1180px;margin:40px auto 0;padding-top:24px;
+    border-top:1px solid rgba(247,239,231,.12);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    font-size:12.5px;color:rgba(247,239,231,.45);
+  }
+  @media(max-width:600px){.ft-bot{justify-content:center;text-align:center}}
+
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#inicio" class="nav-logo" aria-label="Alma House Nails Bar">
+    <span class="mark" role="img" aria-label="Alma House"></span>
+  </a>
+  <div class="nav-links">
+    <a href="#estudio">El estudio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#galeria">Galería</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <a href="#reserva" class="btn btn-primary nav-cta">Reservar</a>
+  <button class="burger" id="mOpen" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="mnav">
+  <button class="close" id="mClose" aria-label="Cerrar menú">&times;</button>
+  <a href="#estudio">El estudio</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#galeria">Galería</a>
+  <a href="#contacto">Contacto</a>
+  <a href="#reserva" class="btn btn-line-light">Reservar cita</a>
+  <img class="mn-mark" src="../assets/img/icon-olive.png" alt="" aria-hidden="true">
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="inicio">
+  <div class="hero-copy">
+    <span class="eyebrow">Nails Bar · Cajicá, Cundinamarca</span>
+    <h1 class="display hero-title">Un momento, <em>para ti.</em></h1>
+    <p class="lead hero-sub">Manicure y pedicure en un espacio pensado para hacer una pausa, respirar y regalarte tiempo de calidad. Más que una cita de uñas.</p>
+    <div class="hero-actions">
+      <a href="#reserva" class="btn btn-primary">Reservar mi cita</a>
+      <a href="#servicios" class="btn btn-line">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-tript">
+    <figure class="arch-fig tript-side">
+      <img src="../assets/img/coffee-cup.jpg" alt="Café de bienvenida servido en Alma House" loading="eager">
+    </figure>
+    <figure class="arch-fig tript-mid">
+      <img src="../assets/img/hero-salon.jpg" alt="Clienta disfrutando su cita de manicure en Alma House, con un café en la mano" fetchpriority="high">
+      <figcaption class="hero-tag"><span>Belleza con alma</span></figcaption>
+    </figure>
+    <figure class="arch-fig tript-side">
+      <img src="../assets/img/studio-interior.jpg" alt="Interior del estudio Alma House: luz natural, verde y detalles cálidos" loading="eager">
+    </figure>
+  </div>
+</header>
+
+<!-- ============ FRANJA DE MARCA ============ -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Tonos que hablan de ti</span><span>Un momento para ti</span><span>Belleza con alma</span><span>Manos bonitas, momentos mejores</span>
+    <span>Tonos que hablan de ti</span><span>Un momento para ti</span><span>Belleza con alma</span><span>Manos bonitas, momentos mejores</span>
+  </div>
+</div>
+
+<!-- ================= EL ESTUDIO ================= -->
+<section class="sec" id="estudio">
+  <img class="est-watermark" src="../assets/img/icon-olive.png" alt="" aria-hidden="true">
+  <div class="inner estudio">
+    <div class="est-media rv">
+      <div class="est-arch"><img src="../assets/img/studio-interior.jpg" alt="Interior del estudio Alma House: sillón crema, luz natural y pared en verde oliva" loading="lazy"></div>
+      <div class="est-medal"><img src="../assets/img/nails-macro.jpg" alt="Detalle de uñas con acabado nude brillante" loading="lazy"></div>
+    </div>
+    <div>
+      <div class="rv">
+        <span class="eyebrow">El estudio</span>
+        <h2 class="display">Más que un nail spa,<br><em>un espacio para ti.</em></h2>
+        <p class="lead">Alma House nace para ser el nail studio de referencia en Cajicá y sus alrededores: un lugar donde el bienestar, la elegancia y el cuidado personal se encuentran. Cada detalle está pensado para que tu visita se sienta como una pausa, no como un turno más.</p>
+      </div>
+      <ul class="pillars rvs">
+        <li class="pillar">
+          <span class="n">i.</span>
+          <div>
+            <h3>Un espacio para desconectar</h3>
+            <p>Diseño cálido, luz suave y un café de bienvenida. Ese plan que necesitas para desconectarte, conversar, reír y sentirte consentida.</p>
+          </div>
+        </li>
+        <li class="pillar">
+          <span class="n">ii.</span>
+          <div>
+            <h3>Acabados premium</h3>
+            <p>Manicure y pedicure en sus técnicas más completas, con productos y procesos que cuidan tus uñas a largo plazo.</p>
+          </div>
+        </li>
+        <li class="pillar">
+          <span class="n">iii.</span>
+          <div>
+            <h3>Atención cercana</h3>
+            <p>Un servicio personalizado y sin prisa, para que cada clienta se sienta escuchada, cuidada y en casa.</p>
+          </div>
+        </li>
+        <li class="pillar">
+          <span class="n">iv.</span>
+          <div>
+            <h3>Cada detalle importa</h3>
+            <p>Nos tomamos el tiempo para cuidar cada proceso, desde la preparación hasta la última capa de color.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section class="sec sec-blush" id="servicios">
+  <div class="inner">
+    <div class="head-c center rv">
+      <span class="eyebrow">Servicios</span>
+      <h2 class="display">Manicure y pedicure,<br>en <em>todas</em> sus formas.</h2>
+      <p class="lead">Elige la técnica que mejor se acomode a tu ritmo y a tu estilo. Todas nuestras citas se agendan por WhatsApp.</p>
+    </div>
+
+    <div class="serv-row rv">
+      <div class="serv-media">
+        <div class="shot"><img src="../assets/img/manicure-detail.jpg" alt="Detalle de manicure semipermanente en tonos nude" loading="lazy"></div>
+        <span class="serv-badge">Manos bonitas</span>
+      </div>
+      <div class="serv-body">
+        <h3>Manicure</h3>
+        <p>Cuidado de manos con acabados que duran, en el tono que hable de ti. Preparamos, cuidamos y damos color sin prisa.</p>
+        <ul class="chips">
+          <li>Tradicional</li>
+          <li>Semipermanente</li>
+          <li>Secado rápido</li>
+          <li>Acrílico</li>
+          <li>Polygel</li>
+        </ul>
+        <a href="#reserva" class="serv-link">Reservar manicure &rarr;</a>
+      </div>
+    </div>
+
+    <div class="serv-row flip rv">
+      <div class="serv-media">
+        <div class="shot"><img src="../assets/img/pedicure-care.jpg" alt="Servicio de pedicure en Alma House" loading="lazy"></div>
+        <span class="serv-badge">Tiempo para ti</span>
+      </div>
+      <div class="serv-body">
+        <h3>Pedicure</h3>
+        <p>Cuidado de pies con la calma y el detalle que se merecen, en una silla pensada para que te quedes un rato más.</p>
+        <ul class="chips">
+          <li>Tradicional</li>
+          <li>Semipermanente</li>
+          <li>Secado rápido</li>
+        </ul>
+        <a href="#reserva" class="serv-link">Reservar pedicure &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CITA FOTOGRÁFICA ============ -->
+<section class="quote">
+  <img src="../assets/img/polish-olive.jpg" alt="Esmalte en tono oliva cayendo del pincel" loading="lazy">
+  <div class="quote-in rv">
+    <p>Tus uñas hablan de ti.</p>
+    <small>Clásicas, delicadas, elegantes o llenas de personalidad</small>
+  </div>
+</section>
+
+<!-- ================= GALERÍA ================= -->
+<section class="sec" id="galeria">
+  <div class="inner">
+    <div class="head-c center rv">
+      <span class="eyebrow">La experiencia</span>
+      <h2 class="display">Tonos que <em>hablan</em> de ti.</h2>
+      <p class="lead">Así se siente y así se ve una visita a Alma House, desde el primer esmalte hasta la última gota.</p>
+    </div>
+
+    <div class="gal rvs">
+      <div class="gal-col">
+        <figure class="a" style="aspect-ratio:4/5"><img src="../assets/img/manicure-polish.jpg" alt="Aplicación de esmalte en el estudio" loading="lazy"></figure>
+        <figure style="aspect-ratio:3/4"><img src="../assets/img/client-smile.jpg" alt="Clienta sonriendo durante su servicio" loading="lazy"></figure>
+      </div>
+      <div class="gal-col">
+        <figure class="a" style="aspect-ratio:3/4"><img src="../assets/img/nail-file.jpg" alt="Limado y preparación de uñas" loading="lazy"></figure>
+        <figure class="o" style="aspect-ratio:1/1"><img src="../assets/img/brush-terracotta.jpg" alt="Pincel con esmalte cargado de color" loading="lazy"></figure>
+      </div>
+      <div class="gal-col">
+        <figure style="aspect-ratio:5/4"><img src="../assets/img/manicure-dark.jpg" alt="Manicure con intención — cuidado de cutículas" loading="lazy"></figure>
+        <!-- Encuadre cerrado sobre la gota: el original trae la frase de
+             marca incrustada y repetiría el titular de esta misma sección. -->
+        <figure class="a drip" style="aspect-ratio:4/5"><img src="../assets/img/polish-drip.jpg" alt="Gota de esmalte cayendo del pincel" loading="lazy"></figure>
+        <figure class="last" style="aspect-ratio:16/11"><img src="../assets/img/nails-macro.jpg" alt="Detalle de uñas con acabado nude brillante" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESERVA ================= -->
+<section class="reserva" id="reserva">
+  <div class="res-shell">
+    <img src="../assets/img/hand-envelope.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="res-card">
+      <div class="rv">
+        <span class="eyebrow">Reservas</span>
+        <h2 class="display">Reserva <em>tu cita</em>.</h2>
+        <p class="lead center" style="margin-left:auto;margin-right:auto">Escríbenos por WhatsApp y agenda tu manicure o pedicure en un par de mensajes. Sin llamadas, sin esperas.</p>
+      </div>
+      <ul class="res-steps rvs">
+        <li><span class="n">1</span> Cuéntanos qué servicio quieres</li>
+        <li><span class="n">2</span> Elige el día y la hora que te queden mejor</li>
+        <li><span class="n">3</span> Recibes la confirmación de tu cita</li>
+      </ul>
+      <div class="res-cta rv">
+        <a href="#" class="btn btn-primary" id="waBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.13c-.24.68-1.2 1.26-1.96 1.42-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36h.56c.18 0 .42-.7.65.5.24.57.81 1.98.88 2.12.7.14.12.31.02.5-.9.19-.14.31-.28.48l-.42.49c-.14.14-.28.29-.12.57.16.28.72 1.18 1.54 1.92 1.06.94 1.95 1.24 2.23 1.38.28.14.44.12.6-.7.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.9.16.62 2.3.79.28.16.47.24.54.38.07.13.07.76-.17 1.44Z"/></svg>
+          Agenda por WhatsApp
+        </a>
+        <div id="resToast" role="status">Muy pronto — el WhatsApp de Alma House se activa con la apertura del estudio.</div>
+        <p class="res-note">Nuestra línea de reservas se habilita con la apertura. Escríbenos aquí apenas esté activa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="sec sec-lt" id="contacto">
+  <div class="inner">
+    <div class="head-c center rv">
+      <span class="eyebrow">Encuéntranos</span>
+      <h2 class="display">Cajicá te <em>espera</em>.</h2>
+      <p class="lead">Estamos ultimando cada detalle del estudio. Muy pronto encontrarás aquí la dirección, los horarios y nuestro WhatsApp de reservas.</p>
+    </div>
+
+    <div class="con-grid rvs">
+      <div class="con-card">
+        <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-5h6v5"/></svg></div>
+        <span class="con-lbl">Ciudad</span>
+        <div class="con-val">Cajicá,<br>Cundinamarca</div>
+      </div>
+      <div class="con-card">
+        <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <span class="con-lbl">Dirección</span>
+        <div class="con-val">Por confirmar</div>
+        <span class="badge">Próximamente</span>
+      </div>
+      <div class="con-card">
+        <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.3L3 20.5l1.7-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg></div>
+        <span class="con-lbl">WhatsApp</span>
+        <div class="con-val">Reservas</div>
+        <span class="badge">Se activa en la apertura</span>
+      </div>
+      <div class="con-card">
+        <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></div>
+        <span class="con-lbl">Instagram</span>
+        <div class="con-val">@almahouse</div>
+        <span class="badge">En creación</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <img src="../assets/img/lockup-cream.png" alt="Alma House Nails Bar">
+  </div>
+  <p class="ft-tag">Un momento, para ti.</p>
+  <div class="ft-links">
+    <a href="#estudio">El estudio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#galeria">Galería</a>
+    <a href="#reserva">Reservas</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 Alma House Nails Bar · Cajicá, Colombia</span>
+    <span>Sitio diseñado y desarrollado por We Rock</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const setNav = () => nav.classList.toggle('solid', window.scrollY > 40);
+  setNav();
+  window.addEventListener('scroll', setNav, {passive:true});
+
+  const mnav = document.getElementById('mnav');
+  const openMenu  = () => { mnav.classList.add('open');    document.body.style.overflow = 'hidden'; };
+  const closeMenu = () => { mnav.classList.remove('open'); document.body.style.overflow = ''; };
+  document.getElementById('mOpen').addEventListener('click', openMenu);
+  document.getElementById('mClose').addEventListener('click', closeMenu);
+  mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv, .rvs').forEach(el => io.observe(el));
+
+  // El número de WhatsApp aún no existe: avisamos con honestidad en vez de enlazar a un número falso.
+  const waBtn = document.getElementById('waBtn'), toast = document.getElementById('resToast');
+  waBtn.addEventListener('click', (e) => { e.preventDefault(); toast.classList.add('show'); });
+</script>
+
+</body>
+</html>

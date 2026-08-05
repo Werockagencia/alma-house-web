@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alma House · Dos direcciones visuales</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/icon-olive.png">
+<style>
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Regular.otf') format('opentype');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Italic.otf') format('opentype');
+    font-weight:400;font-style:italic;font-display:swap;
+  }
+  @font-face{
+    font-family:'Figtree';
+    src:url('assets/fonts/Figtree-VF.ttf') format('truetype-variations');
+    font-weight:300 800;font-style:normal;font-display:swap;
+  }
+
+  :root{
+    --cream:#F7EFE7;--blush:#CEBAAA;--sage:#A3A287;
+    --terracotta:#99471D;--forest:#3F412F;--ink:#33352A;--ink2:#5E6150;
+    --serif:'Aurora Magnollia Serif',Georgia,serif;
+    --sans:'Figtree',-apple-system,'Segoe UI',sans-serif;
+    --bar:112px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans);background:var(--cream);color:var(--ink);
+    -webkit-font-smoothing:antialiased;height:100vh;display:flex;flex-direction:column;
+  }
+
+  header{
+    flex:0 0 auto;background:#fff;border-bottom:1px solid rgba(51,53,42,.1);
+    padding:16px clamp(16px,3vw,32px);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  }
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,28px);line-height:1.2}
+  h1 em{font-style:italic;color:var(--sage)}
+  .sub{font-size:12.5px;color:var(--ink2);margin-top:2px}
+
+  .modes{display:flex;gap:6px;background:var(--cream);padding:5px;border-radius:999px}
+  .modes button{
+    font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink2);background:none;border:none;
+    padding:10px 18px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s;
+    white-space:nowrap;
+  }
+  .modes button:hover{color:var(--ink)}
+  .modes button[aria-pressed="true"]{background:var(--forest);color:var(--cream)}
+
+  main{flex:1 1 auto;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(51,53,42,.12);min-height:0}
+  main[data-mode="a"]{grid-template-columns:1fr}
+  main[data-mode="b"]{grid-template-columns:1fr}
+  main[data-mode="a"] .pane-b,main[data-mode="b"] .pane-a{display:none}
+
+  .pane{display:flex;flex-direction:column;background:#fff;min-width:0;min-height:0}
+  .pane-head{
+    flex:0 0 auto;display:flex;align-items:center;gap:12px;
+    padding:13px clamp(14px,2vw,22px);border-bottom:1px solid rgba(51,53,42,.09);
+  }
+  .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+  .pane-a .dot{background:var(--terracotta)}
+  .pane-b .dot{background:var(--sage)}
+  .pane-head strong{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2}
+  .pane-head span{font-size:12px;color:var(--ink2)}
+  .pane-head a{
+    margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(51,53,42,.25);padding-bottom:3px;
+    white-space:nowrap;transition:color .25s,border-color .25s;
+  }
+  .pane-head a:hover{color:var(--ink);border-color:var(--ink)}
+  .pane iframe{flex:1 1 auto;width:100%;border:0;min-height:0;background:var(--cream)}
+
+  .hint{
+    position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
+    background:rgba(51,53,42,.9);color:var(--cream);font-size:11.5px;
+    padding:9px 18px;border-radius:999px;pointer-events:none;
+    letter-spacing:.03em;
+  }
+
+  /* En pantallas estrechas el lado a lado no aporta: se muestra una
+     dirección a la vez y el conmutador pasa a ocupar todo el ancho. */
+  @media(max-width:900px){
+    main{grid-template-columns:1fr}
+    main[data-mode="side"] .pane-b{display:none}
+    header{flex-direction:column;align-items:stretch}
+    .modes{justify-content:center}
+    .modes [data-mode="side"]{display:none}
+    .hint{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Alma House · dos <em>direcciones</em> visuales</h1>
+    <p class="sub">Mismas secciones y mismo contenido. Dos maneras distintas de vestirlas.</p>
+  </div>
+  <div class="modes" role="group" aria-label="Modo de comparación">
+    <button data-mode="side" aria-pressed="true">Lado a lado</button>
+    <button data-mode="a" aria-pressed="false">Sólo A</button>
+    <button data-mode="b" aria-pressed="false">Sólo B</button>
+  </div>
+</header>
+
+<main id="stage" data-mode="side">
+  <section class="pane pane-a">
+    <div class="pane-head">
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        <strong>Dirección A</strong>
+        <span>· Terracota editorial</span>
+      </div>
+      <a href="./" target="_blank" rel="noopener">Abrir</a>
+    </div>
+    <iframe src="./" title="Alma House — dirección A" loading="lazy"></iframe>
+  </section>
+
+  <section class="pane pane-b">
+    <div class="pane-head">
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        <strong>Dirección B</strong>
+        <span>· Jardín, en verde Edamame</span>
+      </div>
+      <a href="./v2/" target="_blank" rel="noopener">Abrir</a>
+    </div>
+    <iframe src="./v2/" title="Alma House — dirección B" loading="lazy"></iframe>
+  </section>
+</main>
+
+<div class="hint">Cada panel se desplaza por separado</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const btns = document.querySelectorAll('.modes button');
+  btns.forEach(b => b.addEventListener('click', () => {
+    stage.dataset.mode = b.dataset.mode;
+    btns.forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  }));
+</script>
+
+</body>
+</html>
