@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alma House · Las dos direcciones en el celular</title>
+<meta name="description" content="Alma House Nails Bar — las dos direcciones visuales del sitio, en vivo, dentro de un teléfono real.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#221D19">
+<link rel="icon" href="assets/img/icon-olive.png">
+<style>
+
+  /* ============ TIPOGRAFÍA DE MARCA ============
+     Aurora Magnollia Serif → titulares y nombres de dirección.
+     Figtree → todo el texto de lectura e interfaz.
+     Uncage  → SOLO antetítulos (es unicase, todo versal por diseño).
+  ============================================== */
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Regular.otf') format('opentype');
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Italic.otf') format('opentype');
+    font-weight:400;font-style:italic;font-display:swap;
+  }
+  @font-face{
+    font-family:'Figtree';
+    src:url('assets/fonts/Figtree-VF.ttf') format('truetype-variations');
+    font-weight:300 800;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'Uncage';
+    src:url('assets/fonts/Uncage-VF.ttf') format('truetype-variations');
+    font-weight:100 900;font-style:normal;font-display:swap;
+  }
+
+  :root{
+    /* paleta oficial */
+    --cream:#F7EFE7;        /* White Beach  */
+    --blush:#CEBAAA;        /* Smoke Dragon */
+    --sage:#A3A287;         /* Edamame      */
+    --tan:#AF9175;          /* Bakery Brown */
+    --terracotta:#99471D;   /* Hot Brown    */
+    /* profundidades derivadas de la paleta, para el escenario nocturno */
+    --night:#221D19;        /* Bakery Brown muy oscurecido */
+    --night-2:#191512;
+    --forest:#3F412F;       /* Edamame profundo */
+    --terra-dp:#6E3313;     /* Hot Brown profundo */
+    --cream-70:rgba(247,239,231,.70);
+    --cream-45:rgba(247,239,231,.45);
+    --line:rgba(247,239,231,.16);
+
+    --serif:'Aurora Magnollia Serif',Georgia,serif;
+    --sans:'Figtree',-apple-system,'Segoe UI',sans-serif;
+    /* arco de la dirección B, mismo radio elíptico que usa v2 */
+    --arch:50% 50% 16px 16px / 30% 30% 2.5% 2.5%;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    font-size:16.5px;line-height:1.72;letter-spacing:.002em;
+    color:var(--cream);
+    background:var(--night);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* Luz de escenario: dos focos cálidos, uno terracota y uno verde,
+     que son exactamente los dominantes de cada dirección. */
+  .glow{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(58% 46% at 22% 8%,  rgba(153,71,29,.42), transparent 68%),
+      radial-gradient(52% 44% at 82% 26%, rgba(163,162,135,.26), transparent 70%),
+      radial-gradient(70% 50% at 50% 108%,rgba(174,145,117,.20), transparent 72%);
+  }
+  .wrap{position:relative;z-index:1}
+
+  /* ---------- utilidades tipográficas ---------- */
+  .eyebrow{
+    display:inline-block;font-family:'Uncage',var(--sans);
+    font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--blush);
+  }
+  .display{
+    font-family:var(--serif);font-weight:400;line-height:1.06;
+    letter-spacing:-.005em;color:var(--cream);
+  }
+  .display em{font-style:italic;color:var(--blush)}
+  .lead{font-size:17px;line-height:1.75;color:var(--cream-70);max-width:56ch}
+
+  /* ---------- scroll reveal (mismo lenguaje que v1/v2) ---------- */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.2,.7,.3,1),transform 1s cubic-bezier(.2,.7,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.10s}
+  .rv.d2{transition-delay:.20s}
+  .rv.d3{transition-delay:.30s}
+  .rv.d4{transition-delay:.42s}
+
+  /* ================= CABECERA ================= */
+  .intro{
+    max-width:1240px;margin:0 auto;
+    padding:clamp(48px,6.5vh,86px) clamp(20px,5vw,64px) 0;
+    text-align:center;
+  }
+  .lockup{height:38px;width:auto;margin:0 auto 28px;opacity:.92}
+  .intro .eyebrow{margin-bottom:20px}
+  .intro h1{font-size:clamp(40px,5.6vw,80px)}
+  .intro .lead{margin:24px auto 0;text-align:center}
+
+  .links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:34px}
+  .links a{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    padding:14px 26px;border-radius:2px;border:1px solid var(--line);
+    color:var(--cream-70);
+    transition:color .3s,border-color .3s,background .3s,transform .3s;
+  }
+  .links a:hover{color:var(--cream);border-color:var(--cream-45);background:rgba(247,239,231,.06);transform:translateY(-2px)}
+  .links a.solid{background:var(--terracotta);border-color:var(--terracotta);color:#fff}
+  .links a.solid:hover{background:#823C16;border-color:#823C16}
+
+  /* ================= ESCENARIO ================= */
+  .stage{
+    position:relative;
+    max-width:1420px;margin:0 auto;
+    padding:clamp(34px,4.4vw,58px) clamp(16px,4vw,56px) clamp(30px,5vw,60px);
+  }
+
+  .controls{
+    display:flex;justify-content:center;align-items:center;gap:14px;
+    flex-wrap:wrap;margin-bottom:clamp(34px,5vw,58px);
+  }
+  .seg{
+    display:inline-flex;gap:4px;padding:5px;border-radius:999px;
+    background:rgba(247,239,231,.07);border:1px solid var(--line);
+    backdrop-filter:blur(8px);
+  }
+  .seg button{
+    font-family:var(--sans);font-size:11.5px;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cream-70);background:none;border:0;
+    padding:11px 22px;border-radius:999px;cursor:pointer;white-space:nowrap;
+    transition:background .3s,color .3s;
+  }
+  .seg button:hover{color:var(--cream)}
+  .seg button[aria-pressed="true"]{background:var(--cream);color:#2B2420}
+  .ghost{
+    font-family:var(--sans);font-size:11.5px;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cream-45);background:none;border:1px solid var(--line);
+    padding:12px 20px;border-radius:999px;cursor:pointer;
+    transition:color .3s,border-color .3s;
+  }
+  .ghost:hover{color:var(--cream);border-color:var(--cream-45)}
+
+  .phones{
+    display:flex;justify-content:center;align-items:flex-start;
+    gap:clamp(40px,7vw,120px);
+    perspective:2400px;perspective-origin:50% 42%;
+  }
+  .phones[data-view="a"] .slot-b,
+  .phones[data-view="b"] .slot-a{display:none}
+  .phones[data-view="a"] .slot-a .phone,
+  .phones[data-view="b"] .slot-b .phone{--w:min(388px,84vw)}
+  /* En vista individual el teléfono se pone de frente: es la vista de lectura */
+  .phones[data-view="a"] .slot-a .phone,
+  .phones[data-view="b"] .slot-b .phone{transform:none}
+
+  .slot{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    transform-style:preserve-3d;
+  }
+
+  /* Halo del color dominante de cada dirección, detrás de su teléfono */
+  .halo{
+    position:absolute;z-index:0;pointer-events:none;
+    width:150%;height:80%;left:-25%;top:6%;
+    filter:blur(54px);opacity:.62;
+    transition:opacity .6s ease,transform .6s ease;
+  }
+  .slot-a .halo{background:radial-gradient(50% 50% at 50% 50%,rgba(153,71,29,.85),transparent 72%);border-radius:6px}
+  .slot-b .halo{background:radial-gradient(50% 50% at 50% 50%,rgba(163,162,135,.72),transparent 72%);border-radius:var(--arch)}
+  .slot:hover .halo{opacity:.85;transform:scale(1.04)}
+
+  /* Etiqueta de dirección */
+  .tag{position:relative;z-index:2;text-align:center;margin-bottom:26px}
+  .tag .letter{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:40px;height:40px;margin-bottom:14px;
+    font-family:var(--serif);font-size:22px;line-height:1;padding-top:3px;
+    color:var(--cream);
+  }
+  .slot-a .tag .letter{background:var(--terracotta);border-radius:2px}
+  .slot-b .tag .letter{background:var(--sage);color:#2E3024;border-radius:50%}
+  .tag h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,36px);line-height:1.1}
+  .tag .kicker{
+    display:block;margin-top:8px;
+    font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--cream-45);
+  }
+
+  /* ---------- MARCO DE TELÉFONO ---------- */
+  .tilt{
+    position:relative;z-index:2;
+    transform-style:preserve-3d;
+    transition:transform .7s cubic-bezier(.2,.7,.3,1);
+    will-change:transform;
+  }
+  .phone{
+    --w:min(322px,82vw);
+    position:relative;width:var(--w);padding:11px;
+    border-radius:46px;
+    background:linear-gradient(150deg,#6B5F53 0%,#2A2420 26%,#131110 62%,#3A322C 100%);
+    box-shadow:
+      0 0 0 1px rgba(247,239,231,.13) inset,
+      0 2px 3px rgba(0,0,0,.5),
+      0 44px 90px -24px rgba(0,0,0,.75),
+      0 90px 120px -60px rgba(0,0,0,.9);
+    transition:transform .8s cubic-bezier(.2,.7,.3,1),box-shadow .8s ease;
+  }
+  .slot-a .phone{transform:rotateY(9deg) rotateX(1.5deg)}
+  .slot-b .phone{transform:rotateY(-9deg) rotateX(1.5deg)}
+  .phones[data-tilt="off"] .phone{transform:none!important}
+  .slot:hover .phone{
+    transform:rotateY(0deg) rotateX(0deg) translateY(-10px) scale(1.015);
+    box-shadow:
+      0 0 0 1px rgba(247,239,231,.2) inset,
+      0 2px 3px rgba(0,0,0,.5),
+      0 60px 110px -26px rgba(0,0,0,.8),
+      0 110px 140px -60px rgba(0,0,0,.95);
+  }
+  .phones[data-tilt="off"] .slot:hover .phone{transform:translateY(-10px) scale(1.015)!important}
+
+  /* botones laterales */
+  .phone i{position:absolute;background:linear-gradient(90deg,#6B5F53,#2A2420);display:block}
+  .phone i.vol1{left:-2.5px;top:132px;width:3px;height:34px;border-radius:2px 0 0 2px}
+  .phone i.vol2{left:-2.5px;top:176px;width:3px;height:56px;border-radius:2px 0 0 2px}
+  .phone i.pwr {right:-2.5px;top:158px;width:3px;height:74px;border-radius:0 2px 2px 0}
+
+  /* --s = factor de escala del iframe; lo calcula el script y con él se
+     dimensionan la barra de estado y la isla para que el marco sea coherente
+     a cualquier tamaño de teléfono. */
+  .screen{
+    --s:.8;
+    position:relative;width:100%;aspect-ratio:9/19.5;
+    border-radius:36px;overflow:hidden;background:var(--cream);
+    box-shadow:0 0 0 2.5px #0B0A09 inset;
+    isolation:isolate;
+  }
+  /* El sitio arranca justo debajo de la barra de estado, como en un móvil real:
+     viewport de 390 x 791 px (el alto de pantalla menos la barra). */
+  .screen iframe{
+    position:absolute;left:0;top:calc(54px * var(--s));
+    width:390px;height:791px;
+    border:0;transform-origin:top left;background:var(--cream);
+  }
+  .statusbar{
+    position:absolute;z-index:6;top:0;left:0;right:0;
+    height:calc(54px * var(--s));
+    display:flex;align-items:center;justify-content:space-between;
+    padding:calc(6px * var(--s)) calc(26px * var(--s)) 0;
+    background:var(--cream);color:#39302A;
+    pointer-events:none;
+  }
+  .statusbar .hora{
+    font-family:var(--sans);font-weight:600;
+    font-size:calc(15.5px * var(--s));letter-spacing:.01em;line-height:1;
+  }
+  .statusbar svg{width:calc(68px * var(--s));height:auto;display:block}
+  /* isla dinámica */
+  .island{
+    position:absolute;z-index:7;top:calc(12px * var(--s));left:50%;transform:translateX(-50%);
+    width:calc(124px * var(--s));height:calc(36px * var(--s));
+    background:#0B0A09;border-radius:999px;pointer-events:none;
+  }
+  .island::after{
+    content:'';position:absolute;right:13%;top:50%;transform:translateY(-50%);
+    width:calc(11px * var(--s));height:calc(11px * var(--s));border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#3b4a52,#0e1417 70%);
+  }
+  .home{
+    position:absolute;z-index:7;bottom:calc(9px * var(--s));left:50%;transform:translateX(-50%);
+    width:33%;height:calc(5px * var(--s));border-radius:4px;background:rgba(57,48,42,.32);
+    pointer-events:none;
+  }
+  /* reflejo de vidrio: se apaga al pasar el cursor para no estorbar la lectura */
+  .glass{
+    position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:linear-gradient(118deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.06) 22%,transparent 40%);
+    opacity:.7;transition:opacity .6s ease;
+  }
+  .slot:hover .glass,.detail-phone:hover .glass{opacity:.12}
+
+  /* pista de scroll */
+  .hint{
+    position:absolute;inset:0;z-index:7;pointer-events:none;
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:16%;
+    background:linear-gradient(180deg,transparent 62%,rgba(34,29,25,.4) 100%);
+    animation:hintOut .8s ease forwards;animation-delay:4.2s;
+  }
+  .hint span{
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cream);background:rgba(34,29,25,.72);backdrop-filter:blur(6px);
+    padding:9px 18px;border-radius:999px;animation:float 2.2s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes hintOut{to{opacity:0;visibility:hidden}}
+
+  .caption{
+    position:relative;z-index:2;
+    margin-top:30px;max-width:330px;text-align:center;
+    font-size:14.5px;line-height:1.7;color:var(--cream-70);
+  }
+  .caption a{
+    display:inline-block;margin-top:14px;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cream);border-bottom:1px solid var(--cream-45);padding-bottom:4px;
+    transition:border-color .3s}
+  .caption a:hover{border-color:var(--cream)}
+
+  /* ================= VISTA DE CERCA ================= */
+  .detail{
+    max-width:1240px;margin:0 auto;
+    padding:clamp(60px,8vw,120px) clamp(20px,5vw,64px) 0;
+  }
+  .detail-head{text-align:center;margin-bottom:clamp(34px,5vw,56px)}
+  .detail-head .eyebrow{margin-bottom:16px}
+  .detail-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.1}
+  .detail-head p{margin-top:14px;font-size:15px;color:var(--cream-70)}
+
+  .detail-grid{
+    display:grid;grid-template-columns:minmax(0,auto) minmax(280px,420px);
+    gap:clamp(40px,6vw,88px);align-items:center;justify-content:center;
+  }
+  .detail-phone{position:relative;display:flex;justify-content:center}
+  .detail-phone .phone{--w:min(376px,82vw)}
+  .detail-phone .phone{transition:box-shadow .8s ease}
+
+  .id-card{position:relative}
+  .id-card .seg{margin-bottom:30px}
+  .id-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.12}
+  .id-card h3 em{font-style:italic;color:var(--blush)}
+  .id-card .desc{margin-top:16px;font-size:15.5px;line-height:1.75;color:var(--cream-70)}
+
+  .swatches{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .sw{text-align:center}
+  .sw .chip{width:52px;height:52px;border-radius:2px;box-shadow:0 0 0 1px rgba(247,239,231,.28)}
+  .sw.round .chip{border-radius:50%}
+  .sw small{display:block;margin-top:9px;font-size:9.5px;letter-spacing:.1em;color:var(--cream-45);font-weight:600}
+
+  .traits{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+  .traits span{
+    font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--cream-70);border:1px solid var(--line);border-radius:999px;padding:8px 15px;
+  }
+  .typeline{
+    margin-top:28px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:13px;color:var(--cream-45);letter-spacing:.02em;
+  }
+  .typeline b{font-family:var(--serif);font-weight:400;font-size:19px;color:var(--cream);letter-spacing:0}
+
+  /* ================= PIE ================= */
+  .foot{
+    max-width:760px;margin:0 auto;text-align:center;
+    padding:clamp(70px,9vw,130px) 24px clamp(56px,7vw,90px);
+    font-size:13.5px;line-height:1.8;color:var(--cream-45);
+  }
+  .foot strong{color:var(--cream-70);font-weight:600}
+  .foot .rule{width:52px;height:1px;background:var(--line);margin:0 auto 26px}
+  .foot .sign{margin-top:22px;font-family:var(--serif);font-size:20px;color:var(--blush)}
+
+  /* ================= RESPONSIVE ================= */
+  /* En pantalla grande (la sesión se proyecta) los teléfonos crecen */
+  @media(min-width:1400px){
+    .phone{--w:352px}
+    .phones[data-view="a"] .slot-a .phone,
+    .phones[data-view="b"] .slot-b .phone{--w:420px}
+    .detail-phone .phone{--w:400px}
+  }
+  @media(max-width:1080px){
+    .phones{flex-direction:column;align-items:center;gap:76px}
+    .detail-grid{grid-template-columns:1fr;gap:48px}
+    .id-card{text-align:center}
+    .id-card .seg{display:inline-flex}
+    .swatches,.traits{justify-content:center}
+    .id-card .desc{margin-left:auto;margin-right:auto;max-width:52ch}
+  }
+  @media(max-width:640px){
+    .phone{--w:min(300px,86vw)}
+    .detail-phone .phone{--w:min(300px,86vw)}
+    .phones[data-view="a"] .slot-a .phone,
+    .phones[data-view="b"] .slot-b .phone{--w:min(320px,88vw)}
+    .seg button{padding:10px 15px;font-size:10.5px;letter-spacing:.09em}
+    .links a{padding:12px 18px;font-size:10.5px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .rv{opacity:1!important;transform:none!important;transition:none!important}
+    .hint{animation:none;opacity:0}
+    .phone,.tilt{transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <!-- ===================== CABECERA ===================== -->
+  <header class="intro">
+    <img class="lockup rv in" src="assets/img/lockup-cream.png" alt="Alma House Nails Bar">
+    <span class="eyebrow rv d1">Dos direcciones · una en vivo en cada teléfono</span>
+    <h1 class="display rv d2">Tu sitio, <em>en la mano</em><br>de tus clientas</h1>
+    <p class="lead rv d3">
+      Ocho de cada diez personas te van a encontrar desde el celular. Estos dos teléfonos
+      no son imágenes: cargan el sitio real, con tus fotos y tus textos. Desliza dentro de
+      cada pantalla y navégalo tal cual lo hará ella.
+    </p>
+    <nav class="links rv d4">
+      <a class="solid" href="index.html" target="_blank" rel="noopener">Ver dirección A ↗</a>
+      <a href="v2/index.html" target="_blank" rel="noopener">Ver dirección B ↗</a>
+      <a href="compare.html" target="_blank" rel="noopener">Comparador de escritorio ↗</a>
+    </nav>
+  </header>
+
+  <!-- ===================== ESCENARIO ===================== -->
+  <section class="stage">
+
+    <div class="controls rv">
+      <div class="seg" role="group" aria-label="Qué dirección mostrar">
+        <button type="button" data-view="both" aria-pressed="true">Las dos</button>
+        <button type="button" data-view="a" aria-pressed="false">Sólo A</button>
+        <button type="button" data-view="b" aria-pressed="false">Sólo B</button>
+      </div>
+      <button type="button" class="ghost" id="btnTilt" aria-pressed="false">Poner de frente</button>
+    </div>
+
+    <div class="phones rv d1" id="phones" data-view="both" data-tilt="on">
+
+      <!-- ---------- Dirección A ---------- -->
+      <article class="slot slot-a">
+        <span class="halo" aria-hidden="true"></span>
+        <div class="tag">
+          <span class="letter">A</span>
+          <h2>Terracota editorial</h2>
+          <span class="kicker">Hot Brown · esquinas rectas</span>
+        </div>
+        <div class="tilt">
+          <div class="phone">
+            <i class="vol1"></i><i class="vol2"></i><i class="pwr"></i>
+            <div class="screen">
+              <iframe src="index.html" title="Alma House — dirección A en móvil"></iframe>
+              <div class="statusbar" aria-hidden="true"><span class="hora">9:41</span><svg viewBox="0 0 68 15" fill="currentColor"><rect x="0" y="8.5" width="3" height="4.5" rx="1.2"/><rect x="5" y="6.5" width="3" height="6.5" rx="1.2"/><rect x="10" y="4" width="3" height="9" rx="1.2"/><rect x="15" y="1.5" width="3" height="11.5" rx="1.2"/><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M24.4 5.4a8.4 8.4 0 0 1 11.2 0"/><path d="M26.9 8.3a4.8 4.8 0 0 1 6.2 0"/></g><circle cx="30" cy="11.6" r="1.4"/><rect x="45" y="2.6" width="19.4" height="9.8" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".42"/><rect x="46.8" y="4.4" width="12.4" height="6.2" rx="1.8"/><path d="M66.2 6.2v4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".42"/></svg></div>
+              <div class="island" aria-hidden="true"></div>
+              <div class="home" aria-hidden="true"></div>
+              <div class="glass" aria-hidden="true"></div>
+              <div class="hint" aria-hidden="true"><span>Desliza aquí ↕</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="caption">
+          Cálida y con carácter de revista. El terracota manda, la foto ocupa
+          y la tipografía respira. Se siente boutique.
+          <a href="index.html" target="_blank" rel="noopener">Abrir a pantalla completa ↗</a>
+        </p>
+      </article>
+
+      <!-- ---------- Dirección B ---------- -->
+      <article class="slot slot-b">
+        <span class="halo" aria-hidden="true"></span>
+        <div class="tag">
+          <span class="letter">B</span>
+          <h2>Jardín orgánico</h2>
+          <span class="kicker">Edamame · arcos y círculos</span>
+        </div>
+        <div class="tilt">
+          <div class="phone">
+            <i class="vol1"></i><i class="vol2"></i><i class="pwr"></i>
+            <div class="screen">
+              <iframe src="v2/index.html" title="Alma House — dirección B en móvil"></iframe>
+              <div class="statusbar" aria-hidden="true"><span class="hora">9:41</span><svg viewBox="0 0 68 15" fill="currentColor"><rect x="0" y="8.5" width="3" height="4.5" rx="1.2"/><rect x="5" y="6.5" width="3" height="6.5" rx="1.2"/><rect x="10" y="4" width="3" height="9" rx="1.2"/><rect x="15" y="1.5" width="3" height="11.5" rx="1.2"/><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M24.4 5.4a8.4 8.4 0 0 1 11.2 0"/><path d="M26.9 8.3a4.8 4.8 0 0 1 6.2 0"/></g><circle cx="30" cy="11.6" r="1.4"/><rect x="45" y="2.6" width="19.4" height="9.8" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".42"/><rect x="46.8" y="4.4" width="12.4" height="6.2" rx="1.8"/><path d="M66.2 6.2v4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".42"/></svg></div>
+              <div class="island" aria-hidden="true"></div>
+              <div class="home" aria-hidden="true"></div>
+              <div class="glass" aria-hidden="true"></div>
+              <div class="hint" aria-hidden="true"><span>Desliza aquí ↕</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="caption">
+          Serena y natural. El verde Edamame, los arcos y las formas redondas
+          bajan el pulso apenas entras. Se siente spa.
+          <a href="v2/index.html" target="_blank" rel="noopener">Abrir a pantalla completa ↗</a>
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== VISTA DE CERCA ===================== -->
+  <section class="detail">
+    <div class="detail-head rv">
+      <span class="eyebrow">De cerca</span>
+      <h2 class="display">El detalle, una por una</h2>
+      <p>Para revisar con calma durante la sesión: cambia de dirección y el teléfono se recarga en vivo.</p>
+    </div>
+
+    <div class="detail-grid rv d1">
+      <div class="detail-phone">
+        <div class="phone">
+          <i class="vol1"></i><i class="vol2"></i><i class="pwr"></i>
+          <div class="screen">
+            <iframe id="fDetail" src="index.html" title="Alma House — vista de cerca" loading="lazy"></iframe>
+            <div class="statusbar" aria-hidden="true"><span class="hora">9:41</span><svg viewBox="0 0 68 15" fill="currentColor"><rect x="0" y="8.5" width="3" height="4.5" rx="1.2"/><rect x="5" y="6.5" width="3" height="6.5" rx="1.2"/><rect x="10" y="4" width="3" height="9" rx="1.2"/><rect x="15" y="1.5" width="3" height="11.5" rx="1.2"/><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M24.4 5.4a8.4 8.4 0 0 1 11.2 0"/><path d="M26.9 8.3a4.8 4.8 0 0 1 6.2 0"/></g><circle cx="30" cy="11.6" r="1.4"/><rect x="45" y="2.6" width="19.4" height="9.8" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".42"/><rect x="46.8" y="4.4" width="12.4" height="6.2" rx="1.8"/><path d="M66.2 6.2v4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".42"/></svg></div>
+              <div class="island" aria-hidden="true"></div>
+            <div class="home" aria-hidden="true"></div>
+            <div class="glass" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="id-card">
+        <div class="seg" role="group" aria-label="Dirección en vista de cerca">
+          <button type="button" data-dir="a" aria-pressed="true">Dirección A</button>
+          <button type="button" data-dir="b" aria-pressed="false">Dirección B</button>
+        </div>
+        <h3 id="dTitle">Terracota <em>editorial</em></h3>
+        <p class="desc" id="dDesc">
+          Crema de base, terracota Hot Brown como acento fuerte y esquinas rectas.
+          Retícula de revista, contraste alto y fotos grandes: la marca se ve firme,
+          con oficio y con personalidad.
+        </p>
+        <div class="swatches" id="dSwatches"></div>
+        <div class="traits" id="dTraits"></div>
+        <p class="typeline">
+          Tipografía en las dos direcciones ·
+          <b>Aurora Magnollia Serif</b> para los titulares, Figtree para la lectura.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PIE ===================== -->
+  <footer class="foot rv">
+    <div class="rule"></div>
+    <p>
+      Los tres teléfonos cargan <strong>index.html</strong> y <strong>v2/index.html</strong> en un
+      viewport móvil real de 390&nbsp;px, así que lo que ves aquí es exactamente lo que verá
+      cualquier clienta desde su celular. Nada de esto es una imagen.
+    </p>
+    <p class="sign">Alma House · Nails Bar</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* --- Escala cada iframe: se renderiza a un viewport móvil real de 390px
+         y se reduce con transform para caber en el marco. El scroll y los
+         clics siguen llegando al documento real dentro del iframe. --- */
+  var pantallas = [].slice.call(document.querySelectorAll('.screen'));
+
+  function ajustar(pantalla){
+    var f = pantalla.querySelector('iframe');
+    if(!f || !pantalla.clientWidth) return;   /* oculto: se recalcula al volver */
+    var s = pantalla.clientWidth / 390;
+    f.style.transform = 'scale(' + s + ')';
+    pantalla.style.setProperty('--s', s);  /* barra de estado e isla a escala */
+  }
+  function ajustarTodo(){ pantallas.forEach(ajustar); }
+
+  /* Un único ResizeObserver, guardado en el ámbito del módulo: si se crea uno
+     por teléfono sin conservar la referencia, el navegador puede recogerlo. */
+  var ro = window.ResizeObserver
+    ? new ResizeObserver(function(es){ es.forEach(function(e){ ajustar(e.target); }); })
+    : null;
+  pantallas.forEach(function(p){ ajustar(p); if(ro) ro.observe(p); });
+  window.addEventListener('resize', ajustarTodo);
+  /* --- Un teléfono real no muestra barra de scroll: se inyecta una regla
+         dentro del iframe (mismo origen) para ocultarla. Además así el sitio
+         dispone de los 390px completos de ancho. --- */
+  function sinBarra(iframe){
+    function inyectar(){
+      try{
+        var d = iframe.contentDocument;
+        if(!d || d.getElementById('ah-sin-barra')) return;
+        var st = d.createElement('style');
+        st.id = 'ah-sin-barra';
+        st.textContent = 'html{scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior:contain}' +
+                         'html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}';
+        (d.head || d.documentElement).appendChild(st);
+      }catch(e){ /* si algún día se sirve cruzado, simplemente no se oculta */ }
+    }
+    iframe.addEventListener('load', inyectar);
+    inyectar();
+  }
+
+  document.querySelectorAll('.screen iframe').forEach(sinBarra);
+
+  /* --- Scroll reveal --- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  /* Red de seguridad: si el observer llegara con retraso (pestaña en segundo
+     plano al abrirse la proyección), nada puede quedarse invisible. */
+  function revisar(){
+    document.querySelectorAll('.rv:not(.in)').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', revisar, {passive:true});
+  window.addEventListener('load', revisar);
+  setTimeout(revisar, 500);
+
+  /* --- Conmutador del escenario: las dos / sólo A / sólo B --- */
+  var phones = document.getElementById('phones');
+  var segStage = document.querySelectorAll('.controls .seg button');
+  segStage.forEach(function(b){
+    b.addEventListener('click', function(){
+      phones.dataset.view = b.dataset.view;
+      segStage.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      /* El teléfono cambia de tamaño al cambiar de vista: se reescala ya y
+         otra vez al terminar la transición (por si el observer va con retraso). */
+      setTimeout(ajustarTodo, 0);
+      setTimeout(ajustarTodo, 450);
+    });
+  });
+
+  /* --- Poner de frente / devolver la inclinación --- */
+  var btnTilt = document.getElementById('btnTilt');
+  btnTilt.addEventListener('click', function(){
+    var off = phones.dataset.tilt === 'off';
+    phones.dataset.tilt = off ? 'on' : 'off';
+    btnTilt.textContent = off ? 'Poner de frente' : 'Devolver perspectiva';
+    btnTilt.setAttribute('aria-pressed', String(!off));
+  });
+
+  /* --- Parallax suave del escenario (se congela sobre el iframe, que se
+         queda el puntero; por eso la transición larga lo deja elegante) --- */
+  var stage = document.querySelector('.stage');
+  var tilts = document.querySelectorAll('.tilt');
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    stage.addEventListener('mousemove', function(e){
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width  - .5;
+      var y = (e.clientY - r.top)  / r.height - .5;
+      tilts.forEach(function(t){
+        t.style.transform = 'translate3d(' + (-x*16).toFixed(2) + 'px,' + (-y*10).toFixed(2) + 'px,0)';
+      });
+    });
+    stage.addEventListener('mouseleave', function(){
+      tilts.forEach(function(t){ t.style.transform = 'translate3d(0,0,0)'; });
+    });
+  }
+
+  /* --- Vista de cerca: ficha de identidad de cada dirección --- */
+  var datos = {
+    a:{
+      titulo:'Terracota <em>editorial</em>',
+      desc:'Crema de base, terracota Hot Brown como acento fuerte y esquinas rectas. Retícula de revista, contraste alto y fotos grandes: la marca se ve firme, con oficio y con personalidad.',
+      src:'index.html',
+      round:false,
+      swatches:[['#99471D','Hot Brown'],['#F7EFE7','White Beach'],['#AF9175','Bakery Brown'],['#CEBAAA','Smoke Dragon']],
+      traits:['Esquinas rectas','Retícula editorial','Contraste alto','Acento terracota']
+    },
+    b:{
+      titulo:'Jardín <em>orgánico</em>',
+      desc:'La misma crema, pero mandando el verde Edamame. Arcos, círculos y bordes suaves; el ritmo baja y todo respira. La marca se siente serena, natural y de spa.',
+      src:'v2/index.html',
+      round:true,
+      swatches:[['#A3A287','Edamame'],['#F7EFE7','White Beach'],['#CEBAAA','Smoke Dragon'],['#3F412F','Bosque']],
+      traits:['Arcos y círculos','Ritmo orgánico','Contraste suave','Acento verde']
+    }
+  };
+
+  var fDetail   = document.getElementById('fDetail');
+  var dTitle    = document.getElementById('dTitle');
+  var dDesc     = document.getElementById('dDesc');
+  var dSwatches = document.getElementById('dSwatches');
+  var dTraits   = document.getElementById('dTraits');
+
+  function pintar(k){
+    var d = datos[k];
+    dTitle.innerHTML = d.titulo;
+    dDesc.textContent = d.desc;
+    dSwatches.innerHTML = d.swatches.map(function(s){
+      return '<div class="sw' + (d.round ? ' round' : '') + '">' +
+             '<div class="chip" style="background:' + s[0] + '"></div>' +
+             '<small>' + s[1] + '</small></div>';
+    }).join('');
+    dTraits.innerHTML = d.traits.map(function(t){ return '<span>' + t + '</span>'; }).join('');
+  }
+  pintar('a');
+
+  var segDetail = document.querySelectorAll('.id-card .seg button');
+  segDetail.forEach(function(b){
+    b.addEventListener('click', function(){
+      if(b.getAttribute('aria-pressed') === 'true') return;
+      segDetail.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      var k = b.dataset.dir, sc = fDetail.closest('.screen');
+      sc.style.transition = 'opacity .3s ease';
+      sc.style.opacity = '0';
+      setTimeout(function(){
+        fDetail.src = datos[k].src;
+        sc.style.opacity = '1';
+      }, 220);
+      pintar(k);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
