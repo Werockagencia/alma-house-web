@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alma House · Nail Studio Premium en Cajicá</title>
+<meta name="description" content="Alma House Nails Bar — manicure y pedicure premium en Cajicá. Reserva tu cita por WhatsApp con HalconBot.">
+<style>
+
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Regular.otf') format('opentype');
+    font-weight:400; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'Aurora Magnollia Serif';
+    src:url('assets/fonts/AuroraMagnolliaSerif-Italic.otf') format('opentype');
+    font-weight:400; font-style:italic; font-display:swap;
+  }
+  @font-face{
+    font-family:'Uncage';
+    src:url('assets/fonts/Uncage-VF.ttf') format('truetype-variations');
+    font-weight:100 900; font-style:normal; font-display:swap;
+  }
+
+  :root{
+    --cream:#F7EFE7;
+    --cream2:#FBF6F0;
+    --olive:#A3A287;
+    --olive-dk:#7E7D66;
+    --terracotta:#99471D;
+    --terracotta-h:#B25822;
+    --tan:#AF9175;
+    --blush:#CEBAAA;
+    --ink:#39302A;
+    --ink2:#6B5F55;
+    --white:#FFFFFF;
+    --sh:0 2px 24px rgba(57,48,42,.06);
+    --sh2:0 16px 48px rgba(57,48,42,.12);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Uncage','Helvetica Neue',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .serif{font-family:'Aurora Magnollia Serif',serif}
+
+  /* ---- SCROLL REVEAL ---- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-stagger>*{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal-stagger.visible>*{opacity:1;transform:translateY(0)}
+  .reveal-stagger.visible>*:nth-child(1){transition-delay:.05s}
+  .reveal-stagger.visible>*:nth-child(2){transition-delay:.14s}
+  .reveal-stagger.visible>*:nth-child(3){transition-delay:.23s}
+  .reveal-stagger.visible>*:nth-child(4){transition-delay:.32s}
+  .reveal-stagger.visible>*:nth-child(5){transition-delay:.41s}
+
+  /* ---- NAV ---- */
+  #nav{
+    position:fixed;top:0;left:0;right:0;z-index:900;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 56px;
+    background:transparent;
+    transition:all .45s ease;
+  }
+  #nav.scrolled{
+    padding:14px 56px;
+    background:rgba(247,239,231,.92);
+    backdrop-filter:blur(14px);
+    box-shadow:var(--sh);
+  }
+  .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+  .nav-logo img{height:22px}
+  .nav-logo .ic-cream{display:block}
+  .nav-logo .ic-olive{display:none}
+  #nav.scrolled .nav-logo .ic-cream{display:none}
+  #nav.scrolled .nav-logo .ic-olive{display:block}
+  .nav-logo .nav-wordmark{
+    font-family:'Aurora Magnollia Serif',serif;font-size:21px;letter-spacing:.01em;
+    color:var(--cream);transition:color .35s;
+  }
+  #nav.scrolled .nav-logo .nav-wordmark{color:var(--ink)}
+  .nav-links{display:flex;align-items:center;gap:38px}
+  .nav-links a{
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:rgba(247,239,231,.8);text-decoration:none;transition:color .25s;
+  }
+  #nav.scrolled .nav-links a{color:var(--ink2)}
+  .nav-links a:hover{color:var(--terracotta)}
+  #nav.scrolled .nav-links a:hover{color:var(--terracotta)}
+  .nav-cta{
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--terracotta);color:var(--white);
+    padding:12px 24px;text-decoration:none;transition:background .25s,transform .25s;
+    border-radius:2px;
+  }
+  .nav-cta:hover{background:var(--terracotta-h);transform:translateY(-1px)}
+  .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+  .nav-burger span{width:22px;height:2px;background:var(--cream);transition:background .3s}
+  #nav.scrolled .nav-burger span{background:var(--ink)}
+  @media(max-width:860px){
+    .nav-links{display:none}
+    .nav-cta{display:none}
+    .nav-burger{display:flex}
+    #nav{padding:18px 24px}
+    #nav.scrolled{padding:12px 24px}
+  }
+
+  /* mobile overlay menu */
+  #mnav{
+    position:fixed;inset:0;z-index:1200;background:var(--terracotta);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
+  }
+  #mnav.open{opacity:1;pointer-events:auto}
+  #mnav a{font-family:'Aurora Magnollia Serif',serif;font-size:30px;color:var(--cream);text-decoration:none}
+  #mnav .mnav-close{position:absolute;top:26px;right:28px;background:none;border:none;color:var(--cream);font-size:26px;cursor:pointer}
+  #mnav .mnav-cta{margin-top:10px;font-family:'Uncage',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(247,239,231,.5);padding:14px 30px}
+
+  /* ---- HERO ---- */
+  .hero{
+    min-height:100vh;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:160px 32px 90px;
+    background:
+      linear-gradient(155deg,rgba(57,42,28,.86) 0%,rgba(153,71,29,.86) 52%,rgba(57,42,28,.9) 100%),
+      url('assets/img/wave-bg.jpg') center/cover no-repeat;
+  }
+  .hero-icon{
+    position:absolute;bottom:-60px;right:-40px;width:420px;opacity:.10;pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:5;max-width:760px;text-align:center}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:12px;margin-bottom:30px;
+    font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--blush);
+  }
+  .hero-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--blush)}
+  .hero-title{
+    font-family:'Aurora Magnollia Serif',serif;font-weight:400;
+    font-size:clamp(44px,7vw,92px);line-height:1.04;color:var(--cream);
+    letter-spacing:-.01em;
+  }
+  .hero-title em{font-style:italic;color:var(--blush)}
+  .hero-sub{
+    margin:28px auto 0;max-width:520px;font-family:'Aurora Magnollia Serif',serif;
+    font-size:19px;color:rgba(247,239,231,.86);line-height:1.65;
+  }
+  .hero-actions{display:flex;gap:16px;justify-content:center;margin-top:44px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    padding:17px 34px;text-decoration:none;transition:all .25s;border-radius:2px;
+  }
+  .btn-primary{background:var(--terracotta);color:var(--white)}
+  .btn-primary:hover{background:var(--terracotta-h);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid rgba(247,239,231,.4);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--cream);background:rgba(247,239,231,.08)}
+
+  .hero-strip{
+    position:relative;z-index:5;margin-top:70px;
+    display:flex;gap:0;flex-wrap:wrap;justify-content:center;
+  }
+  .hs-item{padding:0 34px;text-align:center;border-left:1px solid rgba(247,239,231,.18)}
+  .hs-item:first-child{border-left:none}
+  .hs-num{font-family:'Aurora Magnollia Serif',serif;font-size:22px;color:var(--cream)}
+  .hs-lbl{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,239,231,.55);margin-top:4px}
+  @media(max-width:640px){.hs-item{padding:8px 18px;border-left:none}}
+
+  /* ---- SECTION SHELL ---- */
+  .sec{padding:120px 0;position:relative;scroll-margin-top:80px}
+  .sec-cream2{background:var(--cream2)}
+  .sec-dark{background:var(--terracotta);color:var(--cream)}
+  .sec-blush{background:var(--blush)}
+  .inner{max-width:1120px;margin:0 auto;padding:0 40px}
+  .inner-nar{max-width:760px;margin:0 auto;padding:0 40px}
+  @media(max-width:640px){.sec{padding:80px 0}.inner,.inner-nar{padding:0 24px}}
+
+  .eyebrow{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--terracotta);margin-bottom:22px;
+  }
+  .sec-dark .eyebrow{color:var(--blush)}
+  .sec-title{
+    font-family:'Aurora Magnollia Serif',serif;font-weight:400;
+    font-size:clamp(32px,4.4vw,54px);line-height:1.1;letter-spacing:-.01em;color:var(--ink);
+  }
+  .sec-dark .sec-title{color:var(--cream)}
+  .sec-title em{font-style:italic;color:var(--terracotta)}
+  .sec-dark .sec-title em{color:var(--blush)}
+  .sec-lead{margin-top:22px;font-family:'Aurora Magnollia Serif',serif;font-size:19px;color:var(--ink2);line-height:1.7;max-width:620px}
+  .sec-dark .sec-lead{color:rgba(247,239,231,.82)}
+
+  /* ---- DIFERENCIAL ---- */
+  .dif-grid{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(57,48,42,.06)}
+  .dif-card{background:var(--cream2);padding:40px 32px}
+  .dif-num{font-family:'Aurora Magnollia Serif',serif;font-size:15px;color:var(--terracotta);display:block;margin-bottom:18px;font-style:italic}
+  .dif-title{font-family:'Aurora Magnollia Serif',serif;font-size:19px;color:var(--ink);margin-bottom:10px;line-height:1.3}
+  .dif-text{font-family:'Aurora Magnollia Serif',serif;font-size:15.5px;color:var(--ink2);line-height:1.6}
+  @media(max-width:900px){.dif-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.dif-grid{grid-template-columns:1fr}}
+
+  /* ---- SERVICIOS ---- */
+  .serv-grid{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(57,48,42,.08)}
+  .serv-card{background:var(--white);padding:52px 48px}
+  .serv-icon{width:38px;height:38px;margin-bottom:24px;opacity:.85}
+  .serv-title{font-family:'Aurora Magnollia Serif',serif;font-size:30px;color:var(--ink);margin-bottom:6px}
+  .serv-sub{font-size:12px;letter-spacing:.08em;color:var(--ink2);margin-bottom:30px}
+  .serv-list{list-style:none}
+  .serv-list li{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:15px 0;border-bottom:1px solid rgba(57,48,42,.08);
+    font-family:'Aurora Magnollia Serif',serif;font-size:18px;color:var(--ink);
+  }
+  .serv-list li:last-child{border-bottom:none}
+  .serv-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--terracotta);margin-right:14px;flex-shrink:0}
+  .serv-list li span{display:flex;align-items:center;flex:1}
+  @media(max-width:760px){.serv-grid{grid-template-columns:1fr}.serv-card{padding:40px 30px}}
+
+  /* ---- EXPERIENCIA (galería editorial) ---- */
+  .exp-grid{margin-top:64px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:stretch}
+  .exp-img{overflow:hidden;box-shadow:var(--sh2)}
+  .exp-img img{width:100%;height:100%;object-fit:cover;min-height:420px;transition:transform .6s ease}
+  .exp-img:hover img{transform:scale(1.035)}
+  @media(max-width:820px){.exp-grid{grid-template-columns:1fr}.exp-img img{min-height:320px}}
+
+  /* ---- HALCONBOT ---- */
+  .hb-wrap{margin-top:64px;display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center}
+  @media(max-width:900px){.hb-wrap{grid-template-columns:1fr;gap:48px}}
+  .hb-list{list-style:none;margin-top:8px}
+  .hb-list li{
+    display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(247,239,231,.14);
+    font-family:'Aurora Magnollia Serif',serif;font-size:17px;color:rgba(247,239,231,.88);line-height:1.5;
+  }
+  .hb-list li:last-child{border-bottom:none}
+  .hb-list .n{
+    flex-shrink:0;width:26px;height:26px;border:1px solid rgba(247,239,231,.35);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--blush);
+  }
+  .hb-note{margin-top:28px;font-family:'Aurora Magnollia Serif',serif;font-style:italic;font-size:13.5px;color:rgba(247,239,231,.5);letter-spacing:.02em}
+
+  .chat-phone{
+    background:var(--cream);border-radius:26px;padding:8px;box-shadow:var(--sh2);
+    max-width:340px;margin:0 auto;
+  }
+  .chat-head{
+    display:flex;align-items:center;gap:10px;padding:16px 16px 14px;border-bottom:1px solid rgba(57,48,42,.08);
+  }
+  .chat-head .av{width:34px;height:34px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center}
+  .chat-head .av img{width:16px;filter:brightness(0) invert(1)}
+  .chat-head .nm{font-size:13px;font-weight:700;color:var(--ink)}
+  .chat-head .st{font-size:10.5px;color:var(--olive-dk)}
+  .chat-body{padding:18px 14px;display:flex;flex-direction:column;gap:10px;min-height:360px}
+  .bub{max-width:80%;padding:11px 15px;border-radius:16px;font-family:'Aurora Magnollia Serif',serif;font-size:15px;line-height:1.45}
+  .bub.in{background:var(--white);color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:var(--sh)}
+  .bub.out{background:var(--terracotta);color:var(--cream);align-self:flex-end;border-bottom-right-radius:4px}
+  .chat-time{font-size:9.5px;color:var(--ink2);text-align:center;margin:2px 0}
+
+  /* ---- CONTACTO ---- */
+  .con-grid{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(57,48,42,.08)}
+  .con-card{background:var(--cream2);padding:36px 30px}
+  .con-lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:12px}
+  .con-val{font-size:16px;color:var(--ink);font-weight:600}
+  .con-sub{font-size:12.5px;color:var(--ink2);margin-top:5px}
+  .badge-soon{
+    display:inline-block;margin-top:10px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--olive-dk);background:rgba(163,162,135,.14);padding:4px 10px;border-radius:20px;
+  }
+  @media(max-width:900px){.con-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.con-grid{grid-template-columns:1fr}}
+
+  /* ---- FOOTER ---- */
+  footer{background:var(--ink);padding:56px 40px 36px}
+  .ft-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+  .ft-logo{display:flex;align-items:center;gap:10px}
+  .ft-logo img{height:22px;opacity:.9}
+  .ft-logo span{font-family:'Aurora Magnollia Serif',serif;font-size:20px;color:var(--cream)}
+  .ft-links{display:flex;gap:26px}
+  .ft-links a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,239,231,.5);text-decoration:none}
+  .ft-links a:hover{color:var(--cream)}
+  .ft-credit{font-size:11px;color:rgba(247,239,231,.32);letter-spacing:.03em}
+  .ft-bottom{max-width:1120px;margin:34px auto 0;padding-top:24px;border-top:1px solid rgba(247,239,231,.08);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:640px){.ft-inner,.ft-bottom{flex-direction:column;align-items:flex-start}}
+
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#inicio" class="nav-logo">
+    <img class="ic-cream" src="assets/img/icon-cream.png" alt="">
+    <img class="ic-olive" src="assets/img/icon-olive.png" alt="">
+    <span class="nav-wordmark">alma house</span>
+  </a>
+  <div class="nav-links">
+    <a href="#diferencial">Alma House</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#halconbot">Reservas</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <a href="#halconbot" class="nav-cta">Reservar cita</a>
+  <button class="nav-burger" id="mnavOpen" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="mnav">
+  <button class="mnav-close" id="mnavClose" aria-label="Cerrar menú">&times;</button>
+  <a href="#diferencial">Alma House</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#experiencia">Experiencia</a>
+  <a href="#halconbot">Reservas</a>
+  <a href="#contacto">Contacto</a>
+  <a href="#halconbot" class="mnav-cta">Reservar cita</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <img class="hero-icon" src="assets/img/icon-cream.png" alt="">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span> Alma House · Nails Bar · Cajicá</div>
+    <h1 class="hero-title">Un momento,<br><em>para ti.</em></h1>
+    <p class="hero-sub">El nail studio premium de Cajicá. Manicure y pedicure con una experiencia que se siente, no solo se ve — y una cita que agendas en segundos.</p>
+    <div class="hero-actions">
+      <a href="#halconbot" class="btn btn-primary">Reservar mi cita</a>
+      <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="hs-item"><div class="hs-num">2</div><div class="hs-lbl">Servicios estrella</div></div>
+    <div class="hs-item"><div class="hs-num">100%</div><div class="hs-lbl">Personalizado</div></div>
+    <div class="hs-item"><div class="hs-num">24/7</div><div class="hs-lbl">Reservas con HalconBot</div></div>
+    <div class="hs-item"><div class="hs-num">Cajicá</div><div class="hs-lbl">Cundinamarca</div></div>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section class="sec" id="diferencial">
+  <div class="inner reveal">
+    <span class="eyebrow">01 · Alma House</span>
+    <h2 class="sec-title">Belleza con <em>alma</em>,<br>en cada visita.</h2>
+    <p class="sec-lead">Alma House nace para ser el nail studio premium de referencia en Cajicá y sus alrededores: un espacio donde el diseño, el servicio y los detalles se sienten desde el primer momento. No es solo una manicure — es un momento que te regalas.</p>
+
+    <div class="dif-grid reveal-stagger">
+      <div class="dif-card">
+        <span class="dif-num serif">i.</span>
+        <div class="dif-title">Diseño para desconectar</div>
+        <p class="dif-text">Un espacio pensado para hacer una pausa, respirar y regalarte tiempo — no solo para atender un turno más.</p>
+      </div>
+      <div class="dif-card">
+        <span class="dif-num serif">ii.</span>
+        <div class="dif-title">Acabados premium</div>
+        <p class="dif-text">Manicure y pedicure en sus técnicas más completas: tradicional, semipermanente, secado rápido, acrílico y polygel.</p>
+      </div>
+      <div class="dif-card">
+        <span class="dif-num serif">iii.</span>
+        <div class="dif-title">Atención cálida</div>
+        <p class="dif-text">Un servicio cercano y personalizado, pensado para que cada clienta se sienta escuchada y en casa.</p>
+      </div>
+      <div class="dif-card">
+        <span class="dif-num serif">iv.</span>
+        <div class="dif-title">Reservas sin fricción</div>
+        <p class="dif-text">Agenda, confirmaciones y recordatorios automáticos con HalconBot, para que agendar tu cita tome segundos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="sec sec-cream2" id="servicios">
+  <div class="inner reveal">
+    <span class="eyebrow">02 · Servicios</span>
+    <h2 class="sec-title">Manicure y pedicure,<br>en <em>todas</em> sus formas.</h2>
+    <p class="sec-lead">Elige la técnica que mejor se acomode a tu ritmo y a tu estilo. Todos nuestros servicios se agendan directamente por WhatsApp con HalconBot.</p>
+
+    <div class="serv-grid reveal-stagger">
+      <div class="serv-card">
+        <img class="serv-icon" src="assets/img/icon-olive.png" alt="">
+        <div class="serv-title">Manicure</div>
+        <div class="serv-sub">CUIDADO DE MANOS</div>
+        <ul class="serv-list">
+          <li><span>Tradicional</span></li>
+          <li><span>Semipermanente</span></li>
+          <li><span>Secado rápido</span></li>
+          <li><span>Acrílico</span></li>
+          <li><span>Polygel</span></li>
+        </ul>
+      </div>
+      <div class="serv-card">
+        <img class="serv-icon" src="assets/img/icon-olive.png" alt="">
+        <div class="serv-title">Pedicure</div>
+        <div class="serv-sub">CUIDADO DE PIES</div>
+        <ul class="serv-list">
+          <li><span>Tradicional</span></li>
+          <li><span>Semipermanente</span></li>
+          <li><span>Secado rápido</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="sec" id="experiencia">
+  <div class="inner reveal">
+    <span class="eyebrow">03 · La experiencia</span>
+    <h2 class="sec-title">Tonos que <em>hablan</em><br>de ti.</h2>
+    <p class="sec-lead">Cada visita a Alma House es un momento propio. Así se siente y así se ve, desde el primer esmalte hasta la última gota.</p>
+
+    <div class="exp-grid reveal-stagger">
+      <div class="exp-img"><img src="assets/img/polish-drip.jpg" alt="Tonos que hablan de ti — Alma House"></div>
+      <div class="exp-img"><img src="assets/img/coffee-moment.jpg" alt="Un momento para ti — Alma House"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HALCONBOT -->
+<section class="sec sec-dark" id="halconbot">
+  <div class="inner">
+    <div class="hb-wrap">
+      <div class="reveal">
+        <span class="eyebrow">04 · Reserva tu cita</span>
+        <h2 class="sec-title">Agenda en <em>segundos</em>,<br>por WhatsApp.</h2>
+        <p class="sec-lead">Toda la agenda de Alma House vive en HalconBot: tu asistente de reservas por WhatsApp e Instagram, disponible 24/7. Sin llamadas, sin esperas.</p>
+
+        <ul class="hb-list">
+          <li><span class="n">1</span> Agenda tu cita por WhatsApp o Instagram, a cualquier hora.</li>
+          <li><span class="n">2</span> Confirma automáticamente tu servicio, fecha y hora.</li>
+          <li><span class="n">3</span> Te recuerda tu cita antes de que llegue el día.</li>
+          <li><span class="n">4</span> Hace seguimiento después de tu visita, para que vuelvas cuando quieras.</li>
+        </ul>
+
+        <div class="hero-actions" style="justify-content:flex-start;margin-top:34px">
+          <a href="#contacto" class="btn btn-primary">Reservar mi cita</a>
+        </div>
+        <p class="hb-note">Número de WhatsApp de Alma House — se activa al lanzamiento del sitio.</p>
+      </div>
+
+      <div class="reveal">
+        <div class="chat-phone">
+          <div class="chat-head">
+            <div class="av"><img src="assets/img/icon-cream.png" alt=""></div>
+            <div>
+              <div class="nm">HalconBot · Alma House</div>
+              <div class="st">En línea</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="chat-time">Hoy, 10:42 a.m.</div>
+            <div class="bub in">¡Hola! 🌙 Soy HalconBot, el asistente de Alma House. ¿En qué te ayudo hoy?</div>
+            <div class="bub out">Hola! Quiero agendar una manicure semipermanente</div>
+            <div class="bub in">¡Con gusto! Tengo disponible mañana 10:00 a.m. o 3:00 p.m. ¿Cuál prefieres?</div>
+            <div class="bub out">3:00 p.m. está perfecto</div>
+            <div class="bub in">Listo ✔ Tu cita quedó agendada para mañana a las 3:00 p.m. Te escribo un recordatorio antes 💛</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="sec sec-cream2" id="contacto">
+  <div class="inner reveal">
+    <span class="eyebrow">05 · Encuéntranos</span>
+    <h2 class="sec-title">Cajicá te <em>espera</em>.</h2>
+    <p class="sec-lead">Muy pronto, todos los datos de contacto y ubicación de Alma House estarán activos aquí y conectados a HalconBot.</p>
+
+    <div class="con-grid reveal-stagger">
+      <div class="con-card">
+        <span class="con-lbl">Ciudad</span>
+        <div class="con-val">Cajicá, Cundinamarca</div>
+      </div>
+      <div class="con-card">
+        <span class="con-lbl">WhatsApp</span>
+        <div class="con-val">HalconBot</div>
+        <span class="badge-soon">Se activa al lanzamiento</span>
+      </div>
+      <div class="con-card">
+        <span class="con-lbl">Instagram</span>
+        <div class="con-val">@almahouse</div>
+        <span class="badge-soon">En creación</span>
+      </div>
+      <div class="con-card">
+        <span class="con-lbl">Horarios</span>
+        <div class="con-val">Por confirmar</div>
+        <span class="badge-soon">Próximamente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-inner">
+    <div class="ft-logo"><img src="assets/img/icon-cream.png" alt=""><span>alma house</span></div>
+    <div class="ft-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#halconbot">Reservas</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-credit">© 2026 Alma House Nails Bar · Cajicá, Colombia</span>
+    <span class="ft-credit">Sitio diseñado y desarrollado por We Rock</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+
+  const mnav = document.getElementById('mnav');
+  document.getElementById('mnavOpen').addEventListener('click', () => mnav.classList.add('open'));
+  document.getElementById('mnavClose').addEventListener('click', () => mnav.classList.remove('open'));
+  mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mnav.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
